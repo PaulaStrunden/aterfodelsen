@@ -289,8 +289,8 @@
       border-top: 1px solid #1a1a1a;
     }
     .credits-block p {
-      font-size: 13px; color: #999;
-      line-height: 1.8; margin-bottom: 2px;
+      font-size: 14px; color: #999;
+      line-height: 1.9; margin-bottom: 4px;
     }
     .credits-block strong {
       color: #fff; font-weight: 900;
@@ -484,6 +484,12 @@
         grid-template-columns: 1fr;
         width: 90vw;
         gap: 16px;
+        margin: 0 auto;
+      }
+      .vpack-item img {
+        max-width: 80vw;
+        margin: 0 auto;
+        display: block;
       }
     }
 
@@ -558,10 +564,7 @@
 
       <div class="act-images">
         <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">10</span><img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)"></div>
-        <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">11</span><img src="img/act1/ref2.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">12</span><img src="img/act1/ref3.jpg" onclick="openLB(this)"></div>
-        </div>
+        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">11</span><img src="img/act1/ref2.jpg" onclick="openLB(this)"></div>
         <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">13</span><img src="img/act1/ref4.jpg" onclick="openLB(this)"></div>
       </div>
       </div>
@@ -623,13 +626,13 @@
         <div class="pair">
           <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">29</span><img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)"></div>
           <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">30</span><img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)"></div>
+        </div>
         <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">39</span><img src="img/act3/ref1.jpg" onclick="openLB(this)"></div>
         <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">40</span><img src="img/act3/ref2.jpg" onclick="openLB(this)"></div>
-        </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">31</span><img src="img/sketches/sketch_death.jpg" onclick="openLB(this)"></div>
+        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">31</span><img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)"></div>
         <div class="pair">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">35</span><img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)"></div>
+        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">35</span><img src="img/sketches/sketch_death.jpg" onclick="openLB(this)"></div>
         
         
         <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">36</span><img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)"></div>
@@ -652,7 +655,7 @@
     <span class="bottom-credit">&copy; Website Design & Concept: Paula Strunden, 2026</span>
     <div class="right">
       <a onclick="document.getElementById('about').classList.add('active')">About</a>
-      <a class="dl-btn" onclick="document.getElementById('vpack').classList.add('active')">&#8595; VISUAL PACK</a>
+      <a class="dl-btn" onclick="document.getElementById('vpack').classList.add('active')">DOWNLOAD <span style="color:#c00">/</span> VISUAL PACK</a>
     </div>
   </div>
 
@@ -696,7 +699,7 @@
   <!-- ═══ VISUAL PACK OVERLAY ═══ -->
   <div class="about-overlay" id="vpack">
     <span class="about-close" onclick="document.getElementById('vpack').classList.remove('active')">&times;</span>
-    <h2>&#8595; VISUAL PACK</h2>
+    <h2>DOWNLOAD <span style="color:#c00">/</span> VISUAL PACK</h2>
     <div class="vpack-grid">
       <div class="vpack-item"><img src="img/visual_pack/mouth_01.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_01.jpg" download></a></div>
       <div class="vpack-item"><img src="img/visual_pack/mouth_02.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_02.jpg" download></a></div>
@@ -708,7 +711,6 @@
       <div class="vpack-item"><img src="img/visual_pack/mouth_08.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_08.jpg" download></a></div>
       <div class="vpack-item"><img src="img/visual_pack/mouth_09.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_09.jpg" download></a></div>
       <div class="vpack-item"><img src="img/visual_pack/mouth_10.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_10.jpg" download></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_11.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_11.jpg" download></a></div>
       <div class="vpack-item"><img src="img/visual_pack/mouth_12.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_12.jpg" download></a></div>
     </div>
   </div>
