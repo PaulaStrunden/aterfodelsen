@@ -247,7 +247,9 @@
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: #000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 400;
       overflow-y: auto;
       padding: 8vh 8vw;
@@ -272,9 +274,9 @@
     .about-overlay h2 .slash { color: #c00; }
     .about-cols {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 40px;
-      max-width: 1200px;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1000px;
     }
     .about-cols p {
       font-size: 16px; font-weight: 400;
@@ -655,39 +657,31 @@
     <h2>ÅTERFÖDELSEN <span class="slash">/</span> REBIRTH</h2>
     <div class="about-cols">
       <div>
-        <p>A room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. 20 minutes. Three acts. One body.</p>
-        <p>The experience unfolds across two connected locations &mdash; MUNCH Museum in Oslo and CCI in Copenhagen &mdash; where visitors in different cities meet as ghosts inside a shared virtual heart.</p>
-
+        <p>What happens when the noise stops? When the screens go dark? When the flood of information that defines our waking life is stripped away and you are left with nothing but a body?</p>
+        <p>ÅTERFÖDELSEN is a journey inward. You enter through the mouth &mdash; overwhelmed, bombarded, drowning in the chaos of the world as it streams toward you. You smash through it. And in the wreckage you find a beating heart.</p>
+        <p>You fall into that heart. You lie inside it. Its walls breathe around you. And somewhere across the city, a stranger lies in the same heart. You reach for each other. When your hands meet, something shifts.</p>
+        <p>Then you rise. The heart opens and you ascend into open sky, into floating staircases and drifting fragments of music. You gather them. You compose something that has never existed before. And then you dissolve into it.</p>
+        <p>20 minutes. Three acts. One body. The question is not what you see &mdash; but what you feel when you come back out.</p>
+        <p>ÅTERFÖDELSEN (Swedish: the afterbirth) is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience unfolds across two connected locations &mdash; MUNCH Museum in Oslo and CCI in Copenhagen &mdash; where visitors in different cities meet as ghosts inside a shared virtual heart.</p>
+      </div>
+      <div>
+        <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
+          <p><span style="color:#c00;font-weight:900;">Silvana Imam</span> Rapper, poet and artist. Lead artist on poetry, sound and music.</p>
+          <p><span style="color:#c00;font-weight:900;">Paula Strunden</span> XR artist and experience designer. Lead artist on immersive experience, spatial narrative and visual world.</p>
+        </div>
         <div class="credits-block">
-          <p style="font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Commissioned Artists</p>
-          <p><strong>Silvana Imam</strong><br><span style="color:#777;">Artist, rapper, songwriter. One of Sweden's most influential voices &mdash; merging poetry, activism and performance.</span></p>
-          <p><strong>Paula Strunden</strong><br><span style="color:#777;">Transdisciplinary artist and researcher. Creates room-scale XR experiences exploring multisensory perception and embodiment.</span></p>
+          <p><span style="color:#c00;font-weight:900;">Nisj</span> Conceptual Sound, Composer</p>
+          <p><span style="color:#c00;font-weight:900;">Marijn Cinjee</span> Spatial Audio Designer, 4DSOUND</p>
+          <p><span style="color:#c00;font-weight:900;">Casimir Geelhoed</span> Developer & Spatial Audio Designer, 4DSOUND</p>
+          <p><span style="color:#c00;font-weight:900;">Christian Sivertsen</span> Technical Coordinator & Creative Technologist, ITU Copenhagen</p>
+          <p><span style="color:#c00;font-weight:900;">Julie L. Parisi</span> Creative Producer & Audience Experience, MUNCH</p>
+          <p><span style="color:#c00;font-weight:900;">Awo Abdulqadir</span> Community Engagement Lead, MUNCH Youth Collective</p>
+          <p><span style="color:#c00;font-weight:900;">MUNCH Youth Collective &laquo;UTKAST/DRAFT&raquo;</span> Guides & Youth Expert Panel</p>
+          <p><span style="color:#c00;font-weight:900;">Birgitte Aga</span> Head of Research and Innovation, Project Owner</p>
         </div>
-      </div>
-
-      <div>
-        <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
-          <p style="font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Conceptual Sound</p>
-          <p><strong>Nisj</strong><br><span style="color:#777;">Sound artist, composer and conceptual sound integration to 4DSOUND</span></p>
-
-          <p style="font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;margin-top:24px;">Spatial Audio</p>
-          <p><strong>Marijn Cinjee</strong><br><span style="color:#777;">Sound Artist & Spatial Audio Designer (4DSOUND)</span></p>
-          <p><strong>Casimir Geelhoed</strong><br><span style="color:#777;">Developer & Spatial Audio Designer (4DSOUND)</span></p>
-
-          <p style="font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;margin-top:24px;">Extended Reality Experience</p>
-          <p><strong>Christian Sivertsen</strong><br><span style="color:#777;">Technical Coordinator & Creative Technologist (IT University of Copenhagen)</span></p>
+        <div class="credits-block">
+          <p><span style="color:#c00;font-weight:900;">XTREME Team</span> KHORA Copenhagen, BOLT Virtual Athens, IT University of Copenhagen, University of Nottingham</p>
         </div>
-      </div>
-
-      <div>
-        <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
-          <p style="font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">MUNCH Team</p>
-          <p><strong>Julie L. Parisi</strong><br><span style="color:#777;">Creative Producer, Audience Experience & MUNCH Use Case Lead</span></p>
-          <p><strong>Awo Abdulqadir</strong><br><span style="color:#777;">Community Engagement Lead, Head of MUNCH Youth Collective</span></p>
-          <p><strong>MUNCH Youth Collective &laquo;UTKAST/DRAFT&raquo;</strong><br><span style="color:#777;">Guides in the XR Experience & Youth Expert Panel</span></p>
-          <p><strong>Birgitte Aga</strong><br><span style="color:#777;">Head of Research and Innovation &mdash; Project Owner</span></p>
-        </div>
-
         <div class="about-disclaimer">
           <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006. January 2024 &mdash; December 2026.</p>
         </div>
