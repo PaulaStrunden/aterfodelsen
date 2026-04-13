@@ -306,10 +306,10 @@
       line-height: 1.9;
     }
     .about-disclaimer .eu-tag {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #888;
+      font-size: 14px;
+      color: #999;
       line-height: 1.9;
+      margin-bottom: 4px;
     }
 
     /* ═══ VISUAL PACK GRID ═══ */
@@ -427,13 +427,10 @@
 
       /* Hide content by default on mobile */
       .column .act-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.6s ease;
+        display: none;
       }
       .column.open .act-content {
-        max-height: 50000px;
-        transition: max-height 1.2s ease;
+        display: block;
       }
 
       /* Play button — hide in header, show when open */
@@ -470,6 +467,10 @@
       .bottom-credit { font-size: 7px; letter-spacing: 1px; display: none; }
       .bottom-bar a { font-size: 12px; letter-spacing: 2px; padding: 0 8px; }
       .dl-btn { font-size: 11px; padding: 6px 12px; white-space: nowrap; letter-spacing: 1px; }
+
+      /* About/vpack overlay mobile fixes */
+      .about-overlay { padding: 60px 5vw 5vh; }
+      .about-close { top: 16px; right: 16px; font-size: 32px; }
 
       /* About overlay mobile */
       .about-overlay { padding: 6vh 5vw; }
@@ -545,27 +546,27 @@
       </div>
       <div class="act-content">
       <div class="act-images">
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">1</span><img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">2</span><img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)"></div>
+        <img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)">
         <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">3</span><img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">4</span><img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)"></div>
+          <img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)">
+          <img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">5</span><img src="img/act1/ref1.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">6</span><img src="img/act1/XtremeMunch_ACT1_visual_05.jpg" onclick="openLB(this)"></div>
+        <img src="img/act1/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_05.jpg" onclick="openLB(this)">
         <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">7</span><img src="img/act1/XtremeMunch_ACT1_visual_06.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">8</span><img src="img/act1/XtremeMunch_ACT1_visual_07.jpg" onclick="openLB(this)"></div>
+          <img src="img/act1/XtremeMunch_ACT1_visual_06.jpg" onclick="openLB(this)">
+          <img src="img/act1/XtremeMunch_ACT1_visual_07.jpg" onclick="openLB(this)">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">9</span><img src="img/sketches/sketch_birth_2.jpg" onclick="openLB(this)"></div>
+        <img src="img/sketches/sketch_birth_2.jpg" onclick="openLB(this)">
       </div>
 
       <div class="poetry">YOU SIT INSIDE A GIANT MOUTH. SCREENS SWARM. YOU GRAB, SMASH, FIGHT. A BEATING HEART APPEARS. YOU REACH FOR IT. YOU FALL.</div>
 
       <div class="act-images">
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">10</span><img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">11</span><img src="img/act1/ref2.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">13</span><img src="img/act1/ref4.jpg" onclick="openLB(this)"></div>
+        <img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)">
+        <img src="img/act1/ref2.jpg" onclick="openLB(this)">
+        <img src="img/act1/ref4.jpg" onclick="openLB(this)">
       </div>
       </div>
     </div>
@@ -584,26 +585,26 @@
       </div>
       <div class="act-content">
       <div class="act-images">
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">15</span><img src="img/sketches/sketch_love.jpg" onclick="openLB(this)"></div>
+        <img src="img/sketches/sketch_love.jpg" onclick="openLB(this)">
         <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">16</span><img src="img/act2/XtremeMunch_ACT2_visual_05.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">17</span><img src="img/act2/XtremeMunch_ACT2_visual_06.jpg" onclick="openLB(this)"></div>
+          <img src="img/act2/XtremeMunch_ACT2_visual_05.jpg" onclick="openLB(this)">
+          <img src="img/act2/XtremeMunch_ACT2_visual_06.jpg" onclick="openLB(this)">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">18</span><img src="img/act2/XtremeMunch_ACT2_visual_07.jpg" onclick="openLB(this)"></div>
+        <img src="img/act2/XtremeMunch_ACT2_visual_07.jpg" onclick="openLB(this)">
       </div>
 
       <div class="poetry">YOU LIE INSIDE A BREATHING HEART. THE WALLS PULSE. A GHOST APPEARS. YOUR HANDS REACH OUT. YOU TOUCH. THE HEART OPENS.</div>
 
       <div class="act-images">
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">20</span><img src="img/act2/screenshot1.jpg" onclick="openLB(this)"></div>
+        <img src="img/act2/screenshot1.jpg" onclick="openLB(this)">
         <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">21</span><img src="img/act2/screenshot2.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">22</span><img src="img/act2/screenshot3.jpg" onclick="openLB(this)"></div>
+          <img src="img/act2/screenshot2.jpg" onclick="openLB(this)">
+          <img src="img/act2/screenshot3.jpg" onclick="openLB(this)">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">23</span><img src="img/act2/ref1.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">24</span><img src="img/act2/ref2.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">25</span><img src="img/act2/ref3.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">26</span><img src="img/act2/XtremeMunch_ACT2_visual_09.jpg" onclick="openLB(this)"></div>
+        <img src="img/act2/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act2/ref2.jpg" onclick="openLB(this)">
+        <img src="img/act2/ref3.jpg" onclick="openLB(this)">
+        <img src="img/act2/XtremeMunch_ACT2_visual_09.jpg" onclick="openLB(this)">
       </div>
       </div>
     </div>
@@ -622,22 +623,22 @@
       </div>
       <div class="act-content">
       <div class="act-images">
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">28</span><img src="img/act3/XtremeMunch_ACT3_visual_01.jpg" onclick="openLB(this)"></div>
+        <img src="img/act3/XtremeMunch_ACT3_visual_01.jpg" onclick="openLB(this)">
         <div class="pair">
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">29</span><img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)"></div>
-          <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">30</span><img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)"></div>
+          <img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)">
+          <img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)">
         </div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">39</span><img src="img/act3/ref1.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">40</span><img src="img/act3/ref2.jpg" onclick="openLB(this)"></div>
+        <img src="img/act3/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act3/ref2.jpg" onclick="openLB(this)">
         
         <div class="pair">
         </div>
-        <div style="position:relative;display:inline-block;width:100%;padding:2% 8%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">35</span><img src="img/sketches/sketch_death.jpg" style="width:100%" onclick="openLB(this)"></div>
+        <div style="position:relative;display:inline-block;width:100%;padding:2% 8%"><img src="img/sketches/sketch_death.jpg" style="width:100%" onclick="openLB(this)"></div>
         
         
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">36</span><img src="img/act3/XtremeMunch_ACT3_visual_22.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">38</span><img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)"></div>
-        <div style="position:relative;display:inline-block;width:100%"><span style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#999;font-size:9px;padding:1px 5px;z-index:2;font-weight:900">31</span><img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)"></div>
+        <img src="img/act3/XtremeMunch_ACT3_visual_22.jpg" onclick="openLB(this)">
+        <img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)">
+        <img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)">
       </div>
 
       <div class="poetry">YOU RISE. THE SKY OPENS. STAIRCASES FLOAT. MUSIC DRIFTS. YOU GATHER THE FRAGMENTS. YOU COMPOSE. YOU DISSOLVE.</div>
@@ -691,7 +692,8 @@
           <p><span style="color:#c00;font-weight:900;">XTREME Project Team</span> KHORA Copenhagen, BOLT Virtual Athens, IT University of Copenhagen, University of Nottingham</p>
         </div>
         <div class="about-disclaimer">
-          <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006..</p>
+          <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006.</p>
+          <p class="eu-tag" style="margin-top:20px;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
         </div>
       </div>
     </div>
