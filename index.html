@@ -365,6 +365,8 @@
     }
     .bottom-credit.visible { opacity: 1; }
 
+    .mobile-only { display: none; }
+
     /* ═══ MOBILE ═══ */
     @media (max-width: 900px) {
       body { scroll-snap-type: none; }
@@ -467,6 +469,8 @@
       .bottom-credit { font-size: 7px; letter-spacing: 1px; display: none; }
       .bottom-bar a { font-size: 12px; letter-spacing: 2px; padding: 0 8px; }
       .dl-btn { font-size: 11px; padding: 6px 12px; white-space: nowrap; letter-spacing: 1px; }
+
+      .mobile-only { display: block; }
 
       /* About/vpack overlay mobile fixes */
       .about-overlay { padding: 60px 5vw 5vh; }
@@ -671,7 +675,7 @@
         <p>ÅTERFÖDELSEN is a journey inward. You enter through the mouth &mdash; overwhelmed, bombarded, drowning in the chaos of the world as it streams toward you. You smash through it. And in the wreckage you find a beating heart.</p>
         <p>You step into that heart. You wander around it. Memory fragments, poetry snippets, past, future, desire, longing, nostalgia. Somewhere across, a stranger inside the same heart...</p>
         <p>15 minutes. Three acts. One body. The question is not what you see &mdash; but what you feel when you come back out.</p>
-        <p>ÅTERFÖDELSEN / REBIRTH is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience unfolds across two connected locations &mdash; MUNCH Museum in Oslo and ITU in Copenhagen &mdash; where visitors in different cities meet as livies and ghosties inside a shared virtual heart.</p>
+        <p>ÅTERFÖDELSEN is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience is an espresso shot of life in three acts (BIRTH, LOVE, DEATH), unfolding across two connected locations &mdash; MUNCH Museum in Oslo and ITU in Copenhagen &mdash; where visitors meet as livies and ghosties inside a shared virtual heart.</p>
       </div>
       <div>
         <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
@@ -693,7 +697,7 @@
         </div>
         <div class="about-disclaimer">
           <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006.</p>
-          <p class="eu-tag" style="margin-top:20px;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
+          <p class="eu-tag mobile-only" style="margin-top:20px;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
         </div>
       </div>
     </div>
