@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ÅTERFÖDELSEN / REBIRTH</title>
+  <meta name="description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
+  <meta property="og:title" content="ÅTERFÖDELSEN / REBIRTH">
+  <meta property="og:description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
+  <meta property="og:image" content="https://aterfodelsen.com/og-image.jpg">
+  <meta property="og:url" content="https://aterfodelsen.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,6 +22,10 @@
       color: #fff;
       overflow-x: hidden;
       scroll-snap-type: y mandatory;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto;
+    }
+    a, button, img, .act-header, [onclick] {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
     }
     .hero, .columns {
       scroll-snap-align: start;
@@ -428,6 +441,7 @@
       .act-subtitle { font-size: 11px; }
 
       /* Hide content by default on mobile */
+      .column { overflow-anchor: none; }
       .column .act-content {
         display: none;
       }
@@ -468,7 +482,7 @@
       }
       .bottom-credit { font-size: 7px; letter-spacing: 1px; display: none; }
       .bottom-bar a { font-size: 12px; letter-spacing: 2px; padding: 0 8px; }
-      .dl-btn { font-size: 11px; padding: 6px 12px; white-space: nowrap; letter-spacing: 1px; }
+      .dl-btn { font-size: 10px; padding: 6px 12px; white-space: normal; letter-spacing: 1px; text-align: center; line-height: 1.4; }
 
       .mobile-only { display: block; }
 
@@ -512,10 +526,36 @@
     }
     .lightbox.active { display: flex; }
     .lightbox img {
-      max-width: 92vw;
-      max-height: 92vh;
+      max-width: 80vw;
+      max-height: 90vh;
       object-fit: contain;
     }
+    .lb-close {
+      position: absolute;
+      top: 24px; right: 30px;
+      font-size: 40px; color: #fff;
+      font-weight: 300;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .lb-close:hover { color: #c00; }
+    .lb-prev, .lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 64px;
+      font-weight: 300;
+      color: #fff;
+      padding: 20px;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
+      transition: color 0.2s;
+      user-select: none;
+      z-index: 2;
+    }
+    .lb-prev { left: 10px; }
+    .lb-next { right: 10px; }
+    .lb-prev:hover, .lb-next:hover { color: #c00; }
   </style>
 </head>
 <body>
@@ -565,7 +605,7 @@
         <img src="img/sketches/sketch_birth_2.jpg" onclick="openLB(this)">
       </div>
 
-      <div class="poetry">YOU SIT INSIDE A GIANT MOUTH. SCREENS SWARM. YOU GRAB, SMASH, FIGHT. A BEATING HEART APPEARS. YOU REACH FOR IT. YOU FALL.</div>
+      <div class="poetry">YOU SIT INSIDE A GIANT MOUTH. SCREENS SWARM. YOU GRAB, SMASH, FIGHT. A BEATING HEART APPEARS. YOU REACH FOR IT...</div>
 
       <div class="act-images">
         <img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)">
@@ -675,7 +715,7 @@
         <p>ÅTERFÖDELSEN is a journey inward. You enter through the mouth &mdash; overwhelmed, bombarded, drowning in the chaos of the world as it streams toward you. You smash through it. And in the wreckage you find a beating heart.</p>
         <p>You step into that heart. You wander around it. Memory fragments, poetry snippets, past, future, desire, longing, nostalgia. Somewhere across, a stranger inside the same heart...</p>
         <p>15 minutes. Three acts. One body. The question is not what you see &mdash; but what you feel when you come back out.</p>
-        <p>ÅTERFÖDELSEN is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience is an espresso shot of life in three acts (BIRTH, LOVE, DEATH), unfolding across two connected locations &mdash; MUNCH Museum in Oslo and ITU in Copenhagen &mdash; where visitors meet as livies and ghosties inside a shared virtual heart.</p>
+        <p>ÅTERFÖDELSEN is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience is an espresso shot of life in three acts (BIRTH / LOVE / DEATH), unfolding across two connected locations &mdash; MUNCH Museum in Oslo and ITU in Copenhagen &mdash; where visitors meet as livies and ghosties inside a shared virtual heart.</p>
       </div>
       <div>
         <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
@@ -697,7 +737,7 @@
         </div>
         <div class="about-disclaimer">
           <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006.</p>
-          <p class="eu-tag mobile-only" style="margin-top:20px;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
+          <p class="eu-tag mobile-only" style="margin-top:20px;padding-top:14px;border-top:1px solid #1a1a1a;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
         </div>
       </div>
     </div>
@@ -723,20 +763,38 @@
   </div>
 
   <!-- ═══ LIGHTBOX ═══ -->
-  <div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+  <div class="lightbox" id="lb">
+    <div class="lb-close" onclick="document.getElementById('lb').classList.remove('active')">&times;</div>
+    <div class="lb-prev" onclick="lbNav(-1)">&lsaquo;</div>
     <img id="lbImg" src="">
+    <div class="lb-next" onclick="lbNav(1)">&rsaquo;</div>
   </div>
 
   <script>
+    let lbImages = [];
+    let lbIndex = 0;
+
     function openLB(el) {
-      document.getElementById('lbImg').src = el.src;
+      // Collect all images in the same column/act
+      const column = el.closest('.column') || el.closest('.act-images') || document.body;
+      lbImages = Array.from(column.querySelectorAll('img[onclick]')).map(img => img.src);
+      lbIndex = lbImages.indexOf(el.src);
+      if (lbIndex === -1) { lbImages = [el.src]; lbIndex = 0; }
+      document.getElementById('lbImg').src = lbImages[lbIndex];
       document.getElementById('lb').classList.add('active');
+    }
+
+    function lbNav(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      document.getElementById('lbImg').src = lbImages[lbIndex];
     }
     function togglePlay(btn) {
       btn.classList.toggle('playing');
       // placeholder — wire up audio files here
     }
     document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' && document.getElementById('lb').classList.contains('active')) { lbNav(-1); return; }
+      if (e.key === 'ArrowRight' && document.getElementById('lb').classList.contains('active')) { lbNav(1); return; }
       if (e.key === 'Escape') {
         document.getElementById('lb').classList.remove('active');
         document.getElementById('about').classList.remove('active');
@@ -750,9 +808,14 @@
         if (e.target.closest('.play-btn')) return;
         const col = header.closest('.column');
         const wasOpen = col.classList.contains('open');
+        // Save scroll position
+        const scrollY = window.scrollY;
+        const headerTop = header.getBoundingClientRect().top + scrollY;
         document.querySelectorAll('.column').forEach(c => c.classList.remove('open'));
         if (!wasOpen) {
           col.classList.add('open');
+          // Restore scroll so header stays in view
+          window.scrollTo(0, headerTop - 10);
         }
       });
     });
