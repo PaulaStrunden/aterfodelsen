@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ÅTERFÖDELSEN / REBIRTH</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+    }
+    .hero, .columns {
+      scroll-snap-align: start;
+    }
+    .quote {
+      padding: 30px 20px 50px;
+      font-size: 11px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: #555;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      position: relative;
+      width: 100vw; height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-img {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      height: 88vh; width: auto;
+      object-fit: contain; z-index: 0;
+    }
+    .hero-text {
+      position: relative; z-index: 1;
+      padding: 0 4vw 6vh;
+    }
+    .hero-title {
+      font-size: clamp(52px, 8.5vw, 130px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    .hero-title .slash { color: #c00; }
+    .hero-sub {
+      margin-top: 18px;
+      font-size: clamp(13px, 1.5vw, 20px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+    }
+    .hero-meta {
+      margin-top: 6px;
+      font-size: clamp(11px, 1.1vw, 15px);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 18px; left: 50%;
+      transform: translateX(-50%); z-index: 2;
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: #333;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.7} }
+
+    /* ═══ THREE COLUMNS ═══ */
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: 100vh;
+      padding-bottom: 46px;
+    }
+    .column {
+      overflow-y: auto;
+      border-right: 1px solid #111;
+      background: #000;
+      scrollbar-width: thin;
+      scrollbar-color: #1a1a1a #000;
+    }
+    .column:last-child { border-right: none; }
+    .column::-webkit-scrollbar { width: 3px; }
+    .column::-webkit-scrollbar-track { background: #000; }
+    .column::-webkit-scrollbar-thumb { background: #1a1a1a; }
+
+    /* ── Act header (sticky) ── */
+    .act-header {
+      position: sticky; top: 0; z-index: 10;
+      padding: 22px 20px 16px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .act-header-left {}
+    .act-number {
+      font-size: 13px; font-weight: 900;
+      letter-spacing: 4px; text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .act-title {
+      font-size: 30px; font-weight: 900;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .act-subtitle {
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase; margin-top: 3px;
+    }
+
+    .col-1 .act-header, .col-2 .act-header, .col-3 .act-header { background: rgba(0,0,0,0.95); }
+    .act-title { color: #fff; }
+    .act-number { color: #d00; }
+    .act-subtitle { color: #d00; }
+
+    /* ── Play button — white ring, red triangle ── */
+    .play-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .play-btn:hover { border-color: #c00; transform: scale(1.1); }
+    .play-btn:active { transform: scale(0.92); }
+    .play-btn.playing { border-color: #c00; }
+    .play-tri {
+      width: 0; height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 12px solid #c00;
+      margin-left: 3px;
+      transition: all 0.2s;
+    }
+    .play-btn:hover .play-tri { border-left-color: #e00; }
+    .play-btn.playing .play-tri {
+      border: none;
+      width: 10px; height: 14px;
+      margin-left: 0;
+      border-left: 3px solid #c00;
+      border-right: 3px solid #c00;
+    }
+
+    /* ── Poetry text ── */
+    .poetry {
+      padding: 30px 20px;
+      font-size: clamp(18px, 2vw, 28px);
+      font-weight: 900;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      text-align: left;
+      color: #fff;
+    }
+
+    /* ── Images ── */
+    .act-images { padding: 5px; background: #000; }
+    .act-images img {
+      width: 100%; display: block;
+      margin-bottom: 5px; opacity: 0.92;
+      transition: opacity 0.3s; cursor: pointer;
+    }
+    .act-images img:hover { opacity: 1; }
+    .pair {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5px; margin-bottom: 5px;
+    }
+    .pair img { margin-bottom: 0; }
+    .trio {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px; margin-bottom: 5px;
+    }
+    .trio img { margin-bottom: 0; }
+    .section-label {
+      font-size: 8px; font-weight: 900;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: #2a2a2a; padding: 22px 15px 8px;
+    }
+
+    /* ═══ BOTTOM BAR ═══ */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100; height: 46px;
+      background: #000;
+      border-top: 1px solid #151515;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 6px;
+    }
+    .bottom-bar a {
+      font-size: 13px; font-weight: 900;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: #fff; text-decoration: none;
+      transition: color 0.3s; cursor: pointer;
+      padding: 0 12px;
+    }
+    .bottom-bar a:hover { color: #c00; }
+    .bottom-bar .sep {
+      color: #222; font-size: 9px;
+    }
+    .bottom-bar .right {
+      margin-left: auto;
+      display: flex; gap: 6px; align-items: center;
+    }
+    .dl-btn {
+      font-size: 13px; font-weight: 900;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: #fff; text-decoration: none;
+      background: #c00;
+      padding: 6px 18px;
+      border-radius: 16px;
+      transition: all 0.2s; cursor: pointer;
+      display: inline-block;
+    }
+    .dl-btn:hover { background: #e00; transform: scale(1.03); }
+    .dl-btn:active { transform: scale(0.97); }
+
+    /* ═══ ABOUT OVERLAY ═══ */
+    .about-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000;
+      z-index: 400;
+      overflow-y: auto;
+      padding: 8vh 8vw;
+    }
+    .about-overlay.active { display: block; }
+    .about-close {
+      position: fixed;
+      top: 24px; right: 30px;
+      font-size: 40px; color: #fff;
+      cursor: pointer; z-index: 401;
+      font-weight: 300;
+      transition: color 0.2s;
+    }
+    .about-close:hover { color: #c00; }
+    .about-overlay h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 50px;
+      text-transform: uppercase;
+    }
+    .about-overlay h2 .slash { color: #c00; }
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1000px;
+    }
+    .about-cols p {
+      font-size: 16px; font-weight: 400;
+      line-height: 1.9; color: #ccc;
+      margin-bottom: 20px;
+    }
+    .credits-block {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #1a1a1a;
+    }
+    .credits-block p {
+      font-size: 14px; color: #999;
+      line-height: 2.2; margin-bottom: 0;
+    }
+    .credits-block strong {
+      color: #fff; font-weight: 900;
+    }
+    .about-disclaimer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #1a1a1a;
+    }
+    .about-disclaimer p {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.9;
+    }
+    .about-disclaimer .eu-tag {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.9;
+    }
+
+    /* ═══ VISUAL PACK GRID ═══ */
+    .vpack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 80vw;
+      padding-bottom: 60px;
+    }
+    .vpack-item {
+      position: relative;
+      overflow: hidden;
+    }
+    .vpack-item img {
+      width: 100%;
+      display: block;
+      opacity: 0.88;
+      transition: opacity 0.3s;
+    }
+    .vpack-item:hover img { opacity: 1; }
+    .vpack-dl {
+      position: absolute;
+      top: 10px; left: 10px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.4);
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .vpack-dl:hover { border-color: #c00; }
+    .vpack-dl::after {
+      content: '';
+      display: block;
+      width: 8px; height: 8px;
+      border-right: 2px solid #c00;
+      border-bottom: 2px solid #c00;
+      transform: rotate(45deg);
+      margin-top: -3px;
+    }
+
+    .bottom-credit {
+      font-size: 9px; font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.6s;
+    }
+    .bottom-credit.visible { opacity: 1; }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 900px) {
+      body { scroll-snap-type: none; }
+
+      .hero-title {
+        font-size: clamp(36px, 12vw, 64px);
+        line-height: 0.88;
+      }
+      .hero-sub { font-size: 12px; }
+      .hero-meta { font-size: 10px; }
+
+      .columns {
+        display: block;
+        height: auto;
+        padding-bottom: 60px;
+      }
+      .column {
+        height: auto;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid #111;
+      }
+
+      /* Act header becomes a tap target */
+      .act-header {
+        position: relative;
+        cursor: pointer;
+        padding: 28px 20px 24px;
+        transition: background 0.3s;
+      }
+      .act-header::after {
+        content: '+';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 28px;
+        font-weight: 300;
+        color: #555;
+        transition: all 0.3s;
+      }
+      .column.open .act-header::after {
+        content: '−';
+        color: #c00;
+      }
+
+      .act-title { font-size: 36px; }
+      .act-number { font-size: 14px; }
+      .act-subtitle { font-size: 11px; }
+
+      /* Hide content by default on mobile */
+      .column .act-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s ease;
+      }
+      .column.open .act-content {
+        max-height: 50000px;
+        transition: max-height 1.2s ease;
+      }
+
+      /* Play button — hide in header, show when open */
+      .play-btn {
+        display: none;
+      }
+      .column.open .play-btn {
+        display: flex;
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      @keyframes fadeSlide {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .poetry {
+        font-size: clamp(16px, 4.5vw, 22px);
+        padding: 24px 20px;
+      }
+
+      .pair { grid-template-columns: 1fr 1fr; }
+
+      /* Bottom bar adjustments */
+      .bottom-bar {
+        flex-direction: row;
+        height: auto;
+        padding: 10px 16px;
+        gap: 10px;
+      }
+      .bottom-credit { font-size: 7px; letter-spacing: 1px; }
+      .bottom-bar a { font-size: 10px; letter-spacing: 2px; }
+      .dl-btn { font-size: 9px; padding: 5px 10px; white-space: nowrap; letter-spacing: 1px; }
+
+      /* About overlay mobile */
+      .about-overlay { padding: 6vh 5vw; }
+      .about-cols {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .about-overlay h2 { font-size: 28px; margin-bottom: 30px; }
+
+      /* Visual pack mobile */
+      .vpack-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90vw;
+        gap: 12px;
+      }
+    }
+
+    /* ═══ LIGHTBOX ═══ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.97);
+      z-index: 500;
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <img class="hero-img" src="img/shared/hero_mouth.jpg" alt="">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        ÅTERFÖDELSEN<br><span class="slash">/</span> REBIRTH
+      </h1>
+      <div class="hero-sub">BY SILVANA IMAM & PAULA STRUNDEN</div>
+      <div class="hero-meta">MUNCH MUSEUM OSLO, 2026</div>
+    </div>
+    <div class="scroll-hint">&darr; Scroll</div>
+  </div>
+
+  <!-- ═══ THREE COLUMNS ═══ -->
+  <div class="columns">
+
+    <!-- ═══ ACT I: BIRTH ═══ -->
+    <div class="column col-1">
+      <div class="act-header">
+        <div class="act-header-left">
+          <div class="act-number">Act I</div>
+          <div class="act-title">BIRTH</div>
+          <div class="act-subtitle">Mouth</div>
+        </div>
+        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act I sound teaser">
+          <div class="play-tri"></div>
+        </button>
+      </div>
+      <div class="act-content">
+      <div class="act-images">
+        <img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)">
+          <img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_05.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act1/XtremeMunch_ACT1_visual_06.jpg" onclick="openLB(this)">
+          <img src="img/act1/XtremeMunch_ACT1_visual_07.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/sketches/sketch_birth_2.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry">YOU SIT INSIDE A GIANT MOUTH. SCREENS SWARM. YOU GRAB, SMASH, FIGHT. A BEATING HEART APPEARS. YOU REACH FOR IT. YOU FALL.</div>
+
+      <div class="act-images">
+        <img src="img/act1/ref1.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act1/ref2.jpg" onclick="openLB(this)">
+          <img src="img/act1/ref3.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/act1/ref4.jpg" onclick="openLB(this)">
+        <img src="img/act1/physical1.jpg" onclick="openLB(this)">
+      </div>
+      </div>
+    </div>
+
+    <!-- ═══ ACT II: LOVE ═══ -->
+    <div class="column col-2">
+      <div class="act-header">
+        <div class="act-header-left">
+          <div class="act-number">Act II</div>
+          <div class="act-title">LOVE</div>
+          <div class="act-subtitle">Heart</div>
+        </div>
+        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act II sound teaser">
+          <div class="play-tri"></div>
+        </button>
+      </div>
+      <div class="act-content">
+      <div class="act-images">
+        <img src="img/sketches/sketch_love.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act2/XtremeMunch_ACT2_visual_05.jpg" onclick="openLB(this)">
+          <img src="img/act2/XtremeMunch_ACT2_visual_06.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/act2/XtremeMunch_ACT2_visual_07.jpg" onclick="openLB(this)">
+        <img src="img/act2/XtremeMunch_ACT2_visual_10.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry">YOU LIE INSIDE A BREATHING HEART. THE WALLS PULSE. A GHOST APPEARS. YOUR HANDS REACH OUT. YOU TOUCH. THE HEART OPENS.</div>
+
+      <div class="act-images">
+        <img src="img/act2/screenshot1.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act2/screenshot2.jpg" onclick="openLB(this)">
+          <img src="img/act2/screenshot3.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/act2/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act2/ref2.jpg" onclick="openLB(this)">
+        <img src="img/act2/ref3.jpg" onclick="openLB(this)">
+        <img src="img/act2/XtremeMunch_ACT2_visual_09.jpg" onclick="openLB(this)">
+        <img src="img/act2/physical1.jpg" onclick="openLB(this)">
+      </div>
+      </div>
+    </div>
+
+    <!-- ═══ ACT III: DEATH ═══ -->
+    <div class="column col-3">
+      <div class="act-header">
+        <div class="act-header-left">
+          <div class="act-number">Act III</div>
+          <div class="act-title">DEATH</div>
+          <div class="act-subtitle">Gut</div>
+        </div>
+        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act III sound teaser">
+          <div class="play-tri"></div>
+        </button>
+      </div>
+      <div class="act-content">
+      <div class="act-images">
+        <img src="img/act3/XtremeMunch_ACT3_visual_01.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)">
+          <img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/sketches/sketch_death.jpg" onclick="openLB(this)">
+        <img src="img/act3/XtremeMunch_ACT3_visual_04.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act3/XtremeMunch_ACT3_visual_05.jpg" onclick="openLB(this)">
+          <img src="img/act3/XtremeMunch_ACT3_visual_06.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)">
+        <div class="pair">
+          <img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)">
+          <img src="img/act3/XtremeMunch_ACT3_visual_09.jpg" onclick="openLB(this)">
+        </div>
+        <img src="img/act3/XtremeMunch_ACT3_visual_22.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry">YOU RISE. THE SKY OPENS. STAIRCASES FLOAT. MUSIC DRIFTS. YOU GATHER THE FRAGMENTS. YOU COMPOSE. YOU DISSOLVE.</div>
+
+      <div class="act-images">
+        <img src="img/act3/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act3/ref2.jpg" onclick="openLB(this)">
+      </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ BOTTOM BAR ═══ -->
+  <div class="bottom-bar">
+    <span class="bottom-credit">&copy; Website Design & Concept: Paula Strunden, 2026</span>
+    <div class="right">
+      <a onclick="document.getElementById('about').classList.add('active')">About</a>
+      <a class="dl-btn" onclick="document.getElementById('vpack').classList.add('active')">&#8595; VISUAL PACK</a>
+    </div>
+  </div>
+
+  <!-- ═══ ABOUT OVERLAY ═══ -->
+  <div class="about-overlay" id="about">
+    <span class="about-close" onclick="document.getElementById('about').classList.remove('active')">&times;</span>
+    <h2>ÅTERFÖDELSEN <span class="slash">/</span> REBIRTH</h2>
+    <div class="about-cols">
+      <div>
+        <p>What happens when the noise stops? When the screens go dark? When the flood of information that defines our waking life is stripped away and you are left with nothing but a body?</p>
+        <p>ÅTERFÖDELSEN is a journey inward. You enter through the mouth &mdash; overwhelmed, bombarded, drowning in the chaos of the world as it streams toward you. You smash through it. And in the wreckage you find a beating heart.</p>
+        <p>You fall into that heart. You lie inside it. Its walls breathe around you. And somewhere across the city, a stranger lies in the same heart. You reach for each other. When your hands meet, something shifts.</p>
+        <p>Then you rise. The heart opens and you ascend into open sky, into floating staircases and drifting fragments of music. You gather them. You compose something that has never existed before. And then you dissolve into it.</p>
+        <p>20 minutes. Three acts. One body. The question is not what you see &mdash; but what you feel when you come back out.</p>
+      </div>
+      <div>
+        <p>ÅTERFÖDELSEN (Swedish: the afterbirth) is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience unfolds across two connected locations &mdash; MUNCH Museum in Oslo and CCI in Copenhagen &mdash; where visitors in different cities meet as ghosts inside a shared virtual heart.</p>
+        <div class="credits-block">
+          <p><strong>Music</strong> &mdash; Silvana Imam</p>
+          <p><strong>XR Experience & Visual Concept</strong> &mdash; Paula Strunden</p>
+          <p><strong>Spatial Audio</strong> &mdash; 4DS</p>
+          <p><strong>Commissioned by</strong> &mdash; MUNCH Museum, Oslo</p>
+          <p><strong>Research Partner</strong> &mdash; CCI Copenhagen</p>
+          <p><strong>Co-development</strong> &mdash; MUNCH Ung</p>
+          <p><strong>Funded by</strong> &mdash; Horizon Europe (XTREME)</p>
+          <p><strong>Opening</strong> &mdash; May 2026, Festsalen, MUNCH Oslo</p>
+        </div>
+        <div class="about-disclaimer">
+          <p class="eu-tag">XTREME &mdash; Mixed Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006. January 2024 &mdash; December 2026.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VISUAL PACK OVERLAY ═══ -->
+  <div class="about-overlay" id="vpack">
+    <span class="about-close" onclick="document.getElementById('vpack').classList.remove('active')">&times;</span>
+    <h2>&#8595; VISUAL PACK</h2>
+    <div class="vpack-grid">
+      <div class="vpack-item"><img src="img/visual_pack/mouth_01.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_01.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_02.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_02.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_03.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_03.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_04.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_04.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_05.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_05.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_06.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_06.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_07.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_07.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_08.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_08.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_09.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_09.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_10.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_10.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_11.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_11.jpg" download></a></div>
+      <div class="vpack-item"><img src="img/visual_pack/mouth_12.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_12.jpg" download></a></div>
+    </div>
+  </div>
+
+  <!-- ═══ LIGHTBOX ═══ -->
+  <div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+    <img id="lbImg" src="">
+  </div>
+
+  <script>
+    function openLB(el) {
+      document.getElementById('lbImg').src = el.src;
+      document.getElementById('lb').classList.add('active');
+    }
+    function togglePlay(btn) {
+      btn.classList.toggle('playing');
+      // placeholder — wire up audio files here
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('lb').classList.remove('active');
+        document.getElementById('about').classList.remove('active');
+        document.getElementById('vpack').classList.remove('active');
+      }
+    });
+    // Mobile: tap act headers to expand/collapse
+    document.querySelectorAll('.act-header').forEach(header => {
+      header.addEventListener('click', (e) => {
+        if (window.innerWidth > 900) return;
+        if (e.target.closest('.play-btn')) return;
+        const col = header.closest('.column');
+        const wasOpen = col.classList.contains('open');
+        document.querySelectorAll('.column').forEach(c => c.classList.remove('open'));
+        if (!wasOpen) {
+          col.classList.add('open');
+        }
+      });
+    });
+
+    // Show copyright only after scrolling past hero
+    window.addEventListener('scroll', () => {
+      const credit = document.querySelector('.bottom-credit');
+      if (window.scrollY > window.innerHeight * 0.5) {
+        credit.classList.add('visible');
+      } else {
+        credit.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
