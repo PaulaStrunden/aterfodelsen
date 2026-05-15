@@ -1081,14 +1081,14 @@
         if (e.target.closest('.play-btn')) return;
         const col = header.closest('.column');
         const wasOpen = col.classList.contains('open');
-        // Save scroll position
-        const scrollY = window.scrollY;
-        const headerTop = header.getBoundingClientRect().top + scrollY;
         document.querySelectorAll('.column').forEach(c => c.classList.remove('open'));
         if (!wasOpen) {
           col.classList.add('open');
-          // Restore scroll so header stays in view
-          window.scrollTo(0, headerTop - 10);
+          // Compute scroll position after layout settles so header lands at top
+          requestAnimationFrame(() => {
+            const headerTop = header.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo(0, headerTop - 10);
+          });
         }
       });
     });
