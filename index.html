@@ -181,14 +181,58 @@
 
     /* ── Poetry text ── */
     .poetry {
-      padding: 30px 20px;
-      font-size: 30px;
-      font-weight: 900;
-      line-height: 1.3;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      padding: 28px 22px;
+      font-size: clamp(15px, 1.3vw, 19px);
+      font-weight: 500;
+      line-height: 1.55;
+      letter-spacing: 0;
+      text-transform: none;
       text-align: left;
       color: #fff;
+    }
+
+    /* ── Language toggle ── */
+    .lang-toggle {
+      position: fixed;
+      top: 20px; right: 26px;
+      z-index: 200;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .lang-toggle a {
+      color: #555;
+      cursor: pointer;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .lang-toggle a.active { color: #fff; }
+    .lang-toggle a:hover { color: #c00; }
+    .lang-toggle .sep { color: #333; }
+
+    body.lang-sv .poetry-en { display: none; }
+    body.lang-en .poetry-sv { display: none; }
+
+    /* ── Image numbering ── */
+    .img-wrap { position: relative; display: block; }
+    .img-num-badge {
+      display: none;
+      position: absolute;
+      top: 8px; left: 8px;
+      background: rgba(204, 0, 0, 0.92);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      z-index: 5;
+      pointer-events: none;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
     /* ── Images ── */
@@ -467,8 +511,9 @@
       }
 
       .poetry {
-        font-size: clamp(16px, 4.5vw, 22px);
-        padding: 24px 20px;
+        font-size: clamp(15px, 4vw, 19px);
+        padding: 26px 20px;
+        line-height: 1.55;
       }
 
       .pair { grid-template-columns: 1fr 1fr; }
@@ -558,7 +603,14 @@
     .lb-prev:hover, .lb-next:hover { color: #c00; }
   </style>
 </head>
-<body>
+<body class="lang-sv">
+
+  <!-- ═══ LANGUAGE TOGGLE ═══ -->
+  <div class="lang-toggle">
+    <a data-lang="sv" class="active" onclick="setLang('sv')">SV</a>
+    <span class="sep">/</span>
+    <a data-lang="en" onclick="setLang('en')">EN</a>
+  </div>
 
   <!-- ═══ HERO ═══ -->
   <div class="hero">
@@ -589,28 +641,111 @@
         </button>
       </div>
       <div class="act-content">
-      <div class="act-images">
-        <img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)">
-        <img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)">
-        <div class="pair">
-          <img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)">
-          <img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)">
-        </div>
-        <img src="img/act1/ref1.jpg" onclick="openLB(this)">
-        <img src="img/act1/XtremeMunch_ACT1_visual_05.jpg" onclick="openLB(this)">
-        <div class="pair">
-          <img src="img/act1/XtremeMunch_ACT1_visual_06.jpg" onclick="openLB(this)">
-          <img src="img/act1/XtremeMunch_ACT1_visual_07.jpg" onclick="openLB(this)">
-        </div>
-        <img src="img/sketches/sketch_birth_2.jpg" onclick="openLB(this)">
+      <div class="poetry poetry-sv">
+        Vem är jag?
+      </div>
+      <div class="poetry poetry-en">
+        Who am I?
       </div>
 
-      <div class="poetry">YOU SIT INSIDE A GIANT MOUTH. SCREENS SWARM. YOU GRAB, SMASH, FIGHT. A BEATING HEART APPEARS. YOU REACH FOR IT...</div>
+      <div class="act-images">
+        <img src="img/sketches/munch41.png" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Hela världen är tom<br>
+        Hör du?<br>
+        Det finns våld i vår tystnad<br>
+        Känner du?<br>
+        Vårt blod är en vit flagga, vajar fram och tillbaka<br>
+        Letar efter lugn när allt vi vet är krig<br>
+        Den här världen varar i två dagar; ena dagen är den emot dig, andra dagen är den med dig<br>
+        När den är emot dig, ha tålamod<br>
+        När den är med dig, var ödmjuk
+      </div>
+      <div class="poetry poetry-en">
+        The whole world is empty<br>
+        Can you hear?<br>
+        There is violence in our silence<br>
+        Can you feel it?<br>
+        Our blood is a white flag, waving back and forth<br>
+        Searching for calm when all we know is war<br>
+        This world lasts two days; one day it is against you, the next day it is with you<br>
+        When it is against you, have patience<br>
+        When it is with you, be humble
+      </div>
 
       <div class="act-images">
-        <img src="img/sketches/sketch_birth.jpg" onclick="openLB(this)">
-        <img src="img/act1/ref2.jpg" onclick="openLB(this)">
-        <img src="img/act1/ref4.jpg" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Dina vapen är din själviska strategi, ditt försvar som skadar din själ<br>
+        Vem vill du vara?<br>
+        Tid är begränsad och som du lever i total ignorans att du ska få lyxen att vakna imorgon<br>
+        Kära du, vad är din hemlighet?
+      </div>
+      <div class="poetry poetry-en">
+        Your weapons are your selfish strategy, your defenses that wound your soul<br>
+        Who do you want to be?<br>
+        Time is limited and yet you live in total ignorance, as if you will be granted the luxury of waking up tomorrow<br>
+        Oh my dear, what is your secret?
+      </div>
+
+      <div class="act-images">
+        <img src="img/act1/ref1.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Förläng din värme<br>
+        Försvara din sanning<br>
+        Minns du allt du har sett?<br>
+        Allt du förlorade genom att titta på TV-skärmen<br>
+        Alla förlorade, ingen vann<br>
+        Och mod hittades ingenstans, förutom i ögonen på dom som slog tillbaka och försvann
+      </div>
+      <div class="poetry poetry-en">
+        Extend your warmth<br>
+        Defend your truth<br>
+        Do you remember everything you saw?<br>
+        Everything you lost while watching TV<br>
+        Everybody lost, no one won<br>
+        And courage was found nowhere, except in the eyes of those who fought back and disappeared
+      </div>
+
+      <div class="act-images">
+        <img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Vem matar din rädsla?<br>
+        Vem när dina drömmar?<br>
+        Du kan inte köpa mig från mina egna ord<br>
+        Dom vill se blod<br>
+        Jag ser sorg, den har ingen längd
+      </div>
+      <div class="poetry poetry-en">
+        Who feeds your fear?<br>
+        Who nourishes your dreams?<br>
+        You cannot buy me from my own words<br>
+        They want to see blood<br>
+        I see sorrow, it has no length
+      </div>
+
+      <div class="act-images">
+        <img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Jag undrar om sanningen kommer med en sång?
+      </div>
+      <div class="poetry poetry-en">
+        I wonder if the truth comes with a song?
+      </div>
+
+      <div class="act-images">
+        <img src="img/act1/chatgpt_jan29.png" onclick="openLB(this)">
+        <img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)">
       </div>
       </div>
     </div>
@@ -630,6 +765,24 @@
       <div class="act-content">
       <div class="act-images">
         <img src="img/sketches/sketch_love.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Det är sent och det regnar<br>
+        Jag är elden och din varma längtan<br>
+        Följ mig hem, jag stoppar mina känslor i dig<br>
+        Ge mig din hand, jag ger dig mina tankar<br>
+        Det är ett rättvist utbyte
+      </div>
+      <div class="poetry poetry-en">
+        It is late and it is raining<br>
+        I am the fire and your warm longing<br>
+        Follow me home, I put my feelings inside you<br>
+        Give me your hand, I give you my thoughts<br>
+        It is a fair exchange
+      </div>
+
+      <div class="act-images">
         <div class="pair">
           <img src="img/act2/XtremeMunch_ACT2_visual_05.jpg" onclick="openLB(this)">
           <img src="img/act2/XtremeMunch_ACT2_visual_06.jpg" onclick="openLB(this)">
@@ -637,7 +790,30 @@
         <img src="img/act2/XtremeMunch_ACT2_visual_07.jpg" onclick="openLB(this)">
       </div>
 
-      <div class="poetry">YOU LIE INSIDE A BREATHING HEART. THE WALLS PULSE. A GHOST APPEARS. YOUR HANDS REACH OUT. YOU TOUCH. THE HEART OPENS.</div>
+      <div class="poetry poetry-sv">
+        Var är du solen?<br>
+        Kom tillbaka så att jag kan förlåta dig<br>
+        Har du hittat orden du tappade sist vi sågs?<br>
+        Trippellås i mitt hus<br>
+        Jag håller dig i mina drömmar, för att i mina drömmar har du inget slut<br>
+        Mellan dina händer glömmer jag allting förutom oss<br>
+        Nånstans mellan eufori och sorg<br>
+        Jag kan inte separera mig själv från vad jag minns<br>
+        Och jag, jag existerar bara i värmen av din blick<br>
+        Hur många timmar tills himlen är din, igen?
+      </div>
+      <div class="poetry poetry-en">
+        Where are you, sun?<br>
+        Come back so that I can forgive you<br>
+        Have you found the words you lost the last time we saw each other?<br>
+        Triple-lock my house<br>
+        I hold you in my dreams, because in my dreams you have no end<br>
+        Between your hands I forget everything except us<br>
+        Somewhere between euphoria and sorrow<br>
+        I cannot separate myself from what I remember<br>
+        And I, I exist only in the warmth of your gaze<br>
+        How many hours until the sky is yours, again?
+      </div>
 
       <div class="act-images">
         <img src="img/act2/screenshot1.jpg" onclick="openLB(this)">
@@ -645,7 +821,6 @@
           <img src="img/act2/screenshot2.jpg" onclick="openLB(this)">
           <img src="img/act2/screenshot3.jpg" onclick="openLB(this)">
         </div>
-        <img src="img/act2/ref1.jpg" onclick="openLB(this)">
         <img src="img/act2/ref2.jpg" onclick="openLB(this)">
         <img src="img/act2/ref3.jpg" onclick="openLB(this)">
         <img src="img/act2/XtremeMunch_ACT2_visual_09.jpg" onclick="openLB(this)">
@@ -666,30 +841,83 @@
         </button>
       </div>
       <div class="act-content">
+      <div class="poetry poetry-sv">
+        I varje storm tar regnet slut<br>
+        I varje steg finns Gud<br>
+        Jag lägger armen om ditt liv<br>
+        Du kan inte konsumera dig till frid<br>
+        Du kan inte köpa mig från mina egna ord<br>
+        Det är bara jag, jag som gömmer mig bakom min egen illusion
+      </div>
+      <div class="poetry poetry-en">
+        In every storm the rain comes to an end<br>
+        Every step is God<br>
+        I wrap my arm around your life<br>
+        You cannot consume your way to peace<br>
+        You cannot buy me from my own words<br>
+        It is only me, hiding behind my own illusion
+      </div>
+
       <div class="act-images">
         <img src="img/act3/XtremeMunch_ACT3_visual_01.jpg" onclick="openLB(this)">
         <div class="pair">
           <img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)">
           <img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)">
         </div>
-        <img src="img/act3/ref1.jpg" onclick="openLB(this)">
-        <img src="img/act3/ref2.jpg" onclick="openLB(this)">
-        
-        <div class="pair">
-        </div>
-        <div style="position:relative;display:inline-block;width:100%;padding:2% 8%"><img src="img/sketches/sketch_death.jpg" style="width:100%" onclick="openLB(this)"></div>
-        
-        
-        <img src="img/act3/XtremeMunch_ACT3_visual_22.jpg" onclick="openLB(this)">
-        <img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)">
-        <img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)">
       </div>
 
-      <div class="poetry">YOU RISE. THE SKY OPENS. STAIRCASES FLOAT. MUSIC DRIFTS. YOU GATHER THE FRAGMENTS. YOU COMPOSE. YOU DISSOLVE.</div>
+      <div class="poetry poetry-sv">
+        Jag kan inte separera mig själv från vad jag minns<br>
+        Allt är suddigt förutom värmen av din kind<br>
+        Våren kom och gick<br>
+        Sol vatten vind<br>
+        Jag slås av ljuset från din frånvaro<br>
+        Och ljudet av piano
+      </div>
+      <div class="poetry poetry-en">
+        I cannot separate myself from what I remember<br>
+        Everything is blurred except the warmth of your cheek<br>
+        Spring came and went<br>
+        Sun water wind<br>
+        I am struck by the light of your absence<br>
+        And the sound of piano
+      </div>
 
       <div class="act-images">
-        
-        
+        <img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)">
+        <img src="img/act3/ref1.jpg" onclick="openLB(this)">
+        <img src="img/act3/ref2.jpg" onclick="openLB(this)">
+      </div>
+
+      <div class="poetry poetry-sv">
+        Jag kom och jag såg vad jag ville se<br>
+        Allt som blev, som solen rörde<br>
+        Slut dina ögon för att se, skönhet går i dina steg<br>
+        Och<br>
+        Om ljus finns i ditt hjärta kommer du att hitta hem<br>
+        För att, en dag tar det bara slut
+      </div>
+      <div class="poetry poetry-en">
+        I came and I saw what I wanted to see<br>
+        All that came to be, all the sun touched<br>
+        Close your eyes and you'll see, beauty walks in your steps<br>
+        And if there is light in your heart, you will find your way home<br>
+        Because, one day it all ends
+      </div>
+
+      <div class="poetry poetry-sv">
+        Slut?<br>
+        Det känns som slutet<br>
+        Men du ser en solnedgång, som i själva verket är en gryning.
+      </div>
+      <div class="poetry poetry-en">
+        Ends?<br>
+        It feels like the end<br>
+        But you see a sunset, that in reality is dawn.
+      </div>
+
+      <div class="act-images">
+        <img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)">
       </div>
       </div>
     </div>
@@ -792,6 +1020,29 @@
       btn.classList.toggle('playing');
       // placeholder — wire up audio files here
     }
+    function setLang(lang) {
+      document.body.classList.remove('lang-sv', 'lang-en');
+      document.body.classList.add('lang-' + lang);
+      document.querySelectorAll('.lang-toggle a').forEach(a => {
+        a.classList.toggle('active', a.dataset.lang === lang);
+      });
+    }
+    // Number every image per act (I.1, I.2, II.1, ...)
+    document.querySelectorAll('.column').forEach((col, idx) => {
+      const label = ['I', 'II', 'III'][idx];
+      let n = 0;
+      col.querySelectorAll('.act-images img').forEach(img => {
+        n++;
+        const wrap = document.createElement('span');
+        wrap.className = 'img-wrap';
+        img.parentNode.insertBefore(wrap, img);
+        wrap.appendChild(img);
+        const badge = document.createElement('div');
+        badge.className = 'img-num-badge';
+        badge.textContent = label + '.' + n;
+        wrap.appendChild(badge);
+      });
+    });
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft' && document.getElementById('lb').classList.contains('active')) { lbNav(-1); return; }
       if (e.key === 'ArrowRight' && document.getElementById('lb').classList.contains('active')) { lbNav(1); return; }
