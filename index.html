@@ -636,7 +636,7 @@
           <div class="act-title">BIRTH</div>
           <div class="act-subtitle">Mouth</div>
         </div>
-        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act I sound teaser">
+        <button class="play-btn" data-audio="sound/act1.mp3" onclick="togglePlay(this)" title="Listen to Act I">
           <div class="play-tri"></div>
         </button>
       </div>
@@ -758,7 +758,7 @@
           <div class="act-title">LOVE</div>
           <div class="act-subtitle">Heart</div>
         </div>
-        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act II sound teaser">
+        <button class="play-btn" data-audio="sound/act2.mp3" onclick="togglePlay(this)" title="Listen to Act II">
           <div class="play-tri"></div>
         </button>
       </div>
@@ -836,7 +836,7 @@
           <div class="act-title">DEATH</div>
           <div class="act-subtitle">Gut</div>
         </div>
-        <button class="play-btn" onclick="togglePlay(this)" title="Listen to Act III sound teaser">
+        <button class="play-btn" data-audio="sound/act3.mp3" onclick="togglePlay(this)" title="Listen to Act III">
           <div class="play-tri"></div>
         </button>
       </div>
@@ -1017,9 +1017,30 @@
       lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
       document.getElementById('lbImg').src = lbImages[lbIndex];
     }
+    const actAudio = {};
     function togglePlay(btn) {
-      btn.classList.toggle('playing');
-      // placeholder — wire up audio files here
+      const src = btn.dataset.audio;
+      if (!src) return;
+      // Stop any other playing audio
+      Object.entries(actAudio).forEach(([key, a]) => {
+        if (key !== src && !a.paused) {
+          a.pause();
+          const otherBtn = document.querySelector(`.play-btn[data-audio="${key}"]`);
+          if (otherBtn) otherBtn.classList.remove('playing');
+        }
+      });
+      if (!actAudio[src]) {
+        actAudio[src] = new Audio(src);
+        actAudio[src].addEventListener('ended', () => btn.classList.remove('playing'));
+      }
+      const audio = actAudio[src];
+      if (audio.paused) {
+        audio.play();
+        btn.classList.add('playing');
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+      }
     }
     function setLang(lang) {
       document.body.classList.remove('lang-sv', 'lang-en');
