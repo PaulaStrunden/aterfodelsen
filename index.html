@@ -334,6 +334,7 @@ section{position:relative;}
 .co-visual img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block;}
 .co-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(5,5,5,.96) 100%);pointer-events:none;}
 .co-vcap{position:absolute;left:0;bottom:0;padding:18px 20px;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#fff;z-index:2;opacity:0;transition:opacity .35s;}
+.co-vcap .vcap-short{display:none;}
 .co-visual:hover .co-vcap{opacity:1;}
 .co-panel{position:relative;overflow-y:auto;background:radial-gradient(120% 80% at 110% -5%, rgba(224,0,36,.18), transparent 55%);}
 .co-bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:20px 3vw 28px;z-index:5;}
@@ -381,9 +382,11 @@ section{position:relative;}
   .co-bar{order:1;position:sticky;top:0;padding:15px 4vw;}
   .co-visual{order:2;height:54vh;flex:0 0 54vh;}
   .co-inner{order:3;}
-  .co-visual img{object-fit:cover;object-position:center bottom;}
+  .co-visual img{object-fit:cover;object-position:center 85%;}
   .co-visual::after{display:none;}
-  .co-vcap{bottom:6px;opacity:1;text-shadow:0 1px 10px rgba(0,0,0,.85);}
+  .co-vcap{bottom:6px;padding:18px 20px 6px;opacity:1;text-shadow:0 1px 10px rgba(0,0,0,.85);}
+  .co-vcap .vcap-full{display:none;}
+  .co-vcap .vcap-short{display:inline;}
   .co-bar::before{inset:0;background:rgba(8,8,8,.5);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 100%);mask-image:linear-gradient(180deg,#000 0%,#000 100%);}
   .co-strip{flex-wrap:wrap;column-gap:7vw;row-gap:16px;}
   .lg-munch{margin-right:0;}
@@ -827,7 +830,7 @@ section{position:relative;}
 <div id="credits-overlay">
   <div class="co-visual">
     <img src="img/blindt/kirkerud_artists.jpg" alt="Silvana Imam and Paula Strunden">
-    <div class="co-vcap">Paula Strunden ✕ Silvana Imam · Photo: Adrian Kirkerud</div>
+    <div class="co-vcap"><span class="vcap-full">Paula Strunden ✕ Silvana Imam · Photo: Adrian Kirkerud</span><span class="vcap-short">Photos: Adrian Kirkerud</span></div>
   </div>
   <div class="co-panel">
     <div class="co-bar">
