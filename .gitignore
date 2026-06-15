@@ -1,0 +1,7 @@
+.DS_Store
+Thumbs.db
+*.bak_*
+*_original.mp3
+*_original.mp4
+*_prefade.mp4
+.claude/

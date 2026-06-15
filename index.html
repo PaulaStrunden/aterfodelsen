@@ -1,1108 +1,1052 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ÅTERFÖDELSEN / REBIRTH</title>
-  <meta name="description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
-  <meta property="og:title" content="ÅTERFÖDELSEN / REBIRTH">
-  <meta property="og:description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
-  <meta property="og:image" content="https://aterfodelsen.com/og-image.jpg">
-  <meta property="og:url" content="https://aterfodelsen.com">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÅTERFÖDELSEN / REBIRTH — Silvana Imam ✕ Paula Strunden — MUNCH 2026</title>
+<meta name="description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
+<meta property="og:title" content="ÅTERFÖDELSEN / REBIRTH">
+<meta property="og:description" content="An immersive XR experience by Silvana Imam & Paula Strunden. MUNCH Museum Oslo, 2026.">
+<meta property="og:image" content="https://aterfodelsen.com/og-image.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto;
-    }
-    a, button, img, .act-header, [onclick] {
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
-    }
-    .hero, .columns {
-      scroll-snap-align: start;
-    }
-    .quote {
-      padding: 30px 20px 50px;
-      font-size: 11px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: 0.02em;
-      color: #555;
-      text-align: center;
-      text-transform: uppercase;
-    }
+:root{
+  --ink:#ffffff;
+  --muted:rgba(255,255,255,.52);
+  --line:rgba(255,255,255,.14);
+  --red:#e00024;
+  --accent:#e00024;
+  --helv:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono:'Space Grotesk','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--helv);
+  background:#050505;
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+  transition:color .6s ease;
+}
+body.light{
+  --ink:#16130a;
+  --muted:rgba(22,19,10,.55);
+  --line:rgba(22,19,10,.16);
+  --accent:#c2001f;
+}
+::selection{background:var(--red);color:#fff;}
+img{user-select:none;-webkit-user-drag:none;}
+a{color:inherit;}
 
-    /* ═══ HERO ═══ */
-    .hero {
-      position: relative;
-      width: 100vw; height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    .hero-img {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      height: 88vh; width: auto;
-      object-fit: contain; z-index: 0;
-    }
-    .hero-text {
-      position: relative; z-index: 1;
-      padding: 0 4vw 6vh;
-    }
-    .hero-title {
-      font-size: clamp(52px, 8.5vw, 130px);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 0.9;
-      text-transform: uppercase;
-    }
-    .hero-title .slash { color: #c00; }
-    .hero-sub {
-      margin-top: 18px;
-      font-size: clamp(13px, 1.5vw, 20px);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #999;
-    }
-    .hero-meta {
-      margin-top: 6px;
-      font-size: clamp(11px, 1.1vw, 15px);
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #444;
-    }
-    .scroll-hint {
-      position: absolute;
-      bottom: 18px; left: 50%;
-      transform: translateX(-50%); z-index: 2;
-      font-size: 10px; font-weight: 900;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: #333;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.7} }
+/* ═══════════ CURSOR ═══════════ */
+#cdot,#cring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9000;transform:translate(-50%,-50%);}
+#cdot{width:8px;height:8px;background:#fff;mix-blend-mode:difference;}
+#cring{width:38px;height:38px;border:1px solid rgba(255,255,255,.7);mix-blend-mode:difference;transition:width .3s,height .3s,opacity .3s;}
+#cring.hot{width:78px;height:78px;}
+@media (hover:none){#cdot,#cring{display:none;}body{cursor:auto;}}
 
-    /* ═══ THREE COLUMNS ═══ */
-    .columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      height: 100vh;
-      padding-bottom: 46px;
-    }
-    .column {
-      overflow-y: auto;
-      border-right: 1px solid #111;
-      background: #000;
-      scrollbar-width: thin;
-      scrollbar-color: #1a1a1a #000;
-    }
-    .column:last-child { border-right: none; }
-    .column::-webkit-scrollbar { width: 3px; }
-    .column::-webkit-scrollbar-track { background: #000; }
-    .column::-webkit-scrollbar-thumb { background: #1a1a1a; }
+/* ═══════════ LOADER ═══════════ */
+#loader{position:fixed;inset:0;z-index:8000;background:#050505;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:26px;transition:opacity .9s ease,visibility .9s;}
+#loader.gone{opacity:0;visibility:hidden;}
+#loader .wordmark{font-weight:900;font-size:clamp(22px,3vw,34px);letter-spacing:.02em;color:#fff;}
+#loader .wordmark span{color:var(--red);}
+#loader .line{width:min(320px,60vw);height:1px;background:#1c1c1c;overflow:hidden;}
+#loader .line i{display:block;height:100%;width:0%;background:var(--red);}
+#loader .lbl{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:#555;text-transform:uppercase;}
 
-    /* ── Act header (sticky) ── */
-    .act-header {
-      position: sticky; top: 0; z-index: 10;
-      padding: 22px 20px 16px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-    .act-header-left {}
-    .act-number {
-      font-size: 13px; font-weight: 900;
-      letter-spacing: 4px; text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    .act-title {
-      font-size: 30px; font-weight: 900;
-      letter-spacing: 0.04em; text-transform: uppercase;
-    }
-    .act-subtitle {
-      font-size: 10px; font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase; margin-top: 3px;
-    }
+/* ═══════════ FIXED CHROME ═══════════ */
+#grain{position:fixed;inset:-100%;z-index:7000;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 7s steps(10) infinite;}
+@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-8%,6%)}40%{transform:translate(5%,-10%)}60%{transform:translate(-4%,10%)}80%{transform:translate(8%,-5%)}}
 
-    .col-1 .act-header, .col-2 .act-header, .col-3 .act-header { background: rgba(0,0,0,0.95); }
-    .act-title { color: #fff; }
-    .act-number { color: #d00; }
-    .act-subtitle { color: #d00; }
+.topbar{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:20px 28px;pointer-events:none;}
+.topbar .lang,.topbar .tb-links,.topbar .lang a,.topbar .tb-links a{pointer-events:auto;}
+.topnav{position:fixed;left:30px;top:0;bottom:0;z-index:600;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:13vh 0;}
+/* connecting line (track) */
+.topnav::before{content:"";position:absolute;left:5px;top:13vh;bottom:13vh;width:1px;background:var(--line);transition:background .6s;}
+/* red progress fill that grows with scroll */
+.topnav .track-fill{position:absolute;left:5px;top:13vh;width:1px;height:0;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:height .15s linear;z-index:1;}
+.topnav a{position:relative;z-index:2;display:flex;align-items:center;gap:14px;text-decoration:none;}
+.topnav .dot{width:11px;height:11px;border-radius:50%;border:1px solid var(--muted);background:transparent;transition:all .4s;flex-shrink:0;}
+.topnav a.done .dot{border-color:var(--accent);}
+.topnav a.on .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 14px var(--accent);transform:scale(1.25);}
+.topnav .lbl{display:flex;flex-direction:column;gap:2px;}
+.topnav .step{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:.65;transition:opacity .4s;}
+.topnav .name{font-weight:900;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .4s;}
+.topnav a.on .name{color:var(--ink);}
+.topnav a.on .step{opacity:1;}
+.topnav a:hover .name{color:var(--ink);}
+.topbar .lang{display:flex;gap:10px;align-items:center;font-weight:900;font-size:13px;letter-spacing:3px;text-transform:uppercase;}
+.topbar .lang a{text-decoration:none;color:var(--muted);transition:color .25s;}
+.topbar .lang a.active{color:var(--ink);}
+.topbar .lang a:hover{color:var(--accent);}
+.topbar .lang .sep{color:var(--muted);font-weight:400;}
+.tb-links{display:flex;gap:18px;align-items:center;font-family:var(--helv);font-weight:900;font-size:13px;letter-spacing:3px;text-transform:uppercase;}
+.tb-links a{text-decoration:none;color:var(--ink);transition:color .25s;}
+.tb-links a:hover{color:var(--accent);}
+@media (max-width:880px){.topbar{justify-content:space-between;}.tb-links{margin:0;font-family:var(--helv);font-weight:900;font-size:13px;letter-spacing:3px;}.tb-links a{color:var(--ink);}}
+body.lang-sv .lang-en{display:none;}
+body.lang-en .lang-sv{display:none;}
+#progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--accent);z-index:700;transition:background .6s;}
+/* soft blur scrims so the fixed UI never sits awkwardly over images */
+.topscrim{position:fixed;top:0;left:0;right:0;height:160px;z-index:550;pointer-events:none;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.55) 60%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.55) 60%,transparent 100%);}
+.leftscrim{position:fixed;top:0;bottom:0;left:0;width:175px;z-index:549;pointer-events:none;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);-webkit-mask-image:linear-gradient(to right,#000 28%,transparent);mask-image:linear-gradient(to right,#000 28%,transparent);}
+@media (max-width:880px){.leftscrim{display:none;}}
+/* ═══ MOBILE BOTTOM TAB BAR ═══ */
+.mobilenav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:620;grid-template-columns:repeat(5,minmax(0,1fr));align-items:stretch;padding:9px 2px calc(9px + env(safe-area-inset-bottom));background:rgba(8,8,8,.74);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);}
+body.light .mobilenav{background:rgba(250,247,238,.82);border-top-color:rgba(22,19,10,.12);}
+.mobilenav a{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;padding:6px 1px;position:relative;-webkit-tap-highlight-color:transparent;}
+.mobilenav .mn-step{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);transition:color .3s;line-height:1;}
+.mobilenav .mn-name{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.6;transition:color .3s,opacity .3s;line-height:1;}
+.mobilenav a.on .mn-step,.mobilenav a.on .mn-name{color:var(--accent);opacity:1;}
+.mobilenav a.on::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:26px;height:2px;background:var(--accent);}
 
-    /* ── Play button — white ring, red triangle ── */
-    .play-btn {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      background: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-    .play-btn:hover { border-color: #c00; transform: scale(1.1); }
-    .play-btn:active { transform: scale(0.92); }
-    .play-btn.playing { border-color: #c00; }
-    .play-tri {
-      width: 0; height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 12px solid #c00;
-      margin-left: 3px;
-      transition: all 0.2s;
-    }
-    .play-btn:hover .play-tri { border-left-color: #e00; }
-    .play-btn.playing .play-tri {
-      border: none;
-      width: 10px; height: 14px;
-      margin-left: 0;
-      border-left: 3px solid #c00;
-      border-right: 3px solid #c00;
-    }
+/* ═══════════ SHARED ═══════════ */
+section{position:relative;}
+.rv{opacity:0;transform:translateY(50px);transition:opacity 1.1s cubic-bezier(.16,.7,.2,1),transform 1.1s cubic-bezier(.16,.7,.2,1);}
+.rv.in{opacity:1;transform:none;}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
 
-    /* ── Poetry text ── */
-    .poetry {
-      padding: 28px 22px;
-      font-size: clamp(15px, 1.3vw, 19px);
-      font-weight: 500;
-      line-height: 1.55;
-      letter-spacing: 0;
-      text-transform: none;
-      text-align: left;
-      color: #fff;
-    }
+.mono-tag{font-family:var(--mono);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);transition:color .6s;}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:14px;transition:color .6s;}
+/* captions reveal on hover, over the image */
+.ph .cap,.vid .cap{position:absolute;left:0;right:0;bottom:0;margin:0;padding:18px 20px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;opacity:0;transition:opacity .35s;pointer-events:none;z-index:4;}
+.ph.bleed .cap,.vid.bleed .cap{padding:24px 4vw;}
+.ph:hover .cap,.vid:hover .cap{opacity:1;}
+/* credit / EU logos */
+.logos{display:flex;align-items:center;gap:52px;flex-wrap:wrap;margin-top:10vh;}
+.logos img{height:48px;width:auto;display:block;}
+.logos img:last-child{height:76px;}
 
-    /* ── Language toggle ── */
-    .lang-toggle {
-      position: fixed;
-      top: 20px; right: 26px;
-      z-index: 200;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .lang-toggle a {
-      color: #555;
-      cursor: pointer;
-      transition: color 0.2s;
-      text-decoration: none;
-    }
-    .lang-toggle a.active { color: #fff; }
-    .lang-toggle a:hover { color: #c00; }
-    .lang-toggle .sep { color: #333; }
+.wrap{max-width:1460px;margin:0 auto;padding:0 6vw;}
+@media (min-width:881px){.wrap{padding-left:max(6vw,180px);}}
 
-    body.lang-sv .poetry-en { display: none; }
-    body.lang-en .poetry-sv { display: none; }
+/* ═══════════ HERO — full-bleed in-world render ═══════════ */
+#hero{height:100svh;min-height:660px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+#hero .bg{position:absolute;inset:-4%;will-change:transform;}
+#hero .bg img,#hero .bg video{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
+#hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.35) 0%,transparent 30%,transparent 52%,rgba(5,5,5,.88) 100%);}
+.hero-txt{position:relative;z-index:3;padding:0 4vw 6vh max(4vw,170px);}
+.hero-title{font-weight:900;font-size:clamp(46px,9.4vw,164px);letter-spacing:-.03em;line-height:.88;text-transform:uppercase;text-shadow:0 4px 60px rgba(0,0,0,.6);}
+.hero-title .slash{color:var(--red);}
+.hero-sub{margin-top:20px;font-size:clamp(13px,1.4vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#ddd;}
+.hero-meta{margin-top:8px;font-family:var(--mono);font-size:clamp(10px,1vw,12px);letter-spacing:.22em;text-transform:uppercase;color:#8a8a8a;}
+.hero-cred{position:absolute;bottom:24px;left:max(4vw,170px);z-index:4;max-width:70vw;text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.7);opacity:0;transition:opacity .5s ease;pointer-events:none;}
+.hero-cred.show{opacity:.85;}
+.scroll-cue{position:absolute;bottom:24px;right:4vw;z-index:4;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#999;transition:opacity .5s ease;}
+.scroll-cue.gone{opacity:0;}
+.scroll-cue i{display:block;width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--red));animation:cueline 1.8s ease-in-out infinite;}
+@keyframes cueline{0%{transform:scaleX(0);transform-origin:left}60%{transform:scaleX(1);transform-origin:left}61%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
 
-    /* ── Image numbering ── */
-    .img-wrap { position: relative; display: block; }
-    .img-num-badge {
-      display: none;
-      position: absolute;
-      top: 8px; left: 8px;
-      background: rgba(204, 0, 0, 0.92);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      padding: 4px 8px;
-      border-radius: 3px;
-      z-index: 5;
-      pointer-events: none;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
+/* ═══════════ INTRO ═══════════ */
+#intro{padding:24vh 0 6vh;}
+.intro-line{font-weight:900;text-transform:uppercase;font-size:clamp(30px,5.4vw,92px);line-height:1.0;letter-spacing:-.02em;}
+.intro-line.ghost{color:transparent;-webkit-text-stroke:1.2px var(--muted);}
+.intro-line.red{color:var(--accent);}
+.intro-sub{margin-top:7vh;max-width:58ch;font-size:clamp(14px,1.25vw,17px);line-height:1.95;color:var(--muted);transition:color .6s;}
+.intro-sub b{color:var(--ink);font-weight:700;transition:color .6s;}
 
-    /* ── Images ── */
-    .act-images { padding: 5px; background: #000; }
-    .act-images img {
-      width: 100%; display: block;
-      margin-bottom: 5px; opacity: 0.92;
-      transition: opacity 0.3s; cursor: pointer;
-    }
-    .act-images img:hover { opacity: 1; }
-    .pair {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5px; margin-bottom: 5px;
-    }
-    .pair img { margin-bottom: 0; }
-    .trio {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 5px; margin-bottom: 5px;
-    }
-    .trio img { margin-bottom: 0; }
-    .section-label {
-      font-size: 8px; font-weight: 900;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: #2a2a2a; padding: 22px 15px 8px;
-    }
+/* ═══════════ ACT STRUCTURE ═══════════ */
+.act{padding:4vh 0 14vh;}
+.act-ghostnum{display:none;}
+.act-head{
+  position:sticky;top:0;z-index:560;
+  padding:18px 0 22px;
+}
+.act-head::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 24%,#000 54%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 24%,#000 54%,transparent 100%);}
+.act-head .wrap{display:flex;align-items:center;justify-content:space-between;}
+.act-head .lft{display:flex;align-items:center;gap:22px;}
+.act-head .num{font-family:var(--mono);font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;}
+.act-head .ttl{font-weight:900;font-size:clamp(26px,3.4vw,46px);letter-spacing:.02em;text-transform:uppercase;line-height:1;}
+.act-head .org{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
 
-    /* ═══ BOTTOM BAR ═══ */
-    .bottom-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 100; height: 46px;
-      background: #000;
-      border-top: 1px solid #151515;
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      gap: 6px;
-    }
-    .bottom-bar a {
-      font-size: 13px; font-weight: 900;
-      letter-spacing: 4px; text-transform: uppercase;
-      color: #fff; text-decoration: none;
-      transition: color 0.3s; cursor: pointer;
-      padding: 0 12px;
-    }
-    .bottom-bar a:hover { color: #c00; }
-    .bottom-bar .sep {
-      color: #222; font-size: 9px;
-    }
-    .bottom-bar .right {
-      margin-left: auto;
-      display: flex; gap: 6px; align-items: center;
-    }
-    .dl-btn {
-      font-size: 13px; font-weight: 900;
-      letter-spacing: 4px; text-transform: uppercase;
-      color: #fff; text-decoration: none;
-      background: #c00;
-      padding: 6px 18px;
-      border-radius: 16px;
-      transition: all 0.2s; cursor: pointer;
-      display: inline-block;
-    }
-    .dl-btn:hover { background: #e00; transform: scale(1.03); }
-    .dl-btn:active { transform: scale(0.97); }
+/* play button + EQ */
+.play{display:flex;align-items:center;gap:14px;background:none;border:none;font-family:var(--mono);}
+.play .ring{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;transition:all .25s;position:relative;flex-shrink:0;}
+.play:hover .ring{border-color:var(--accent);transform:scale(1.08);}
+.play .tri{width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid var(--accent);margin-left:3px;}
+.play.playing .tri{border:none;width:9px;height:12px;border-left:3px solid var(--accent);border-right:3px solid var(--accent);margin-left:0;}
+.play .eq{display:flex;align-items:flex-end;gap:2px;height:16px;opacity:0;transition:opacity .3s;}
+.play.playing .eq{opacity:1;}
+.play .eq i{width:3px;background:var(--accent);height:4px;}
+.play.playing .eq i{animation:eq .7s ease-in-out infinite;}
+.play.playing .eq i:nth-child(2){animation-delay:.15s}
+.play.playing .eq i:nth-child(3){animation-delay:.3s}
+.play.playing .eq i:nth-child(4){animation-delay:.45s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.play .plbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);transition:color .6s;}
 
-    /* ═══ ABOUT OVERLAY ═══ */
-    .about-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 400;
-      overflow-y: auto;
-      padding: 8vh 8vw;
-    }
-    .about-overlay.active { display: block; }
-    .about-close {
-      position: fixed;
-      top: 24px; right: 30px;
-      font-size: 40px; color: #fff;
-      cursor: pointer; z-index: 401;
-      font-weight: 300;
-      transition: color 0.2s;
-    }
-    .about-close:hover { color: #c00; }
-    .about-overlay h2 {
-      font-size: clamp(32px, 4vw, 56px);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin-bottom: 50px;
-      text-transform: uppercase;
-    }
-    .about-overlay h2 .slash { color: #c00; }
-    .about-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      max-width: 1000px;
-    }
-    .about-cols p {
-      font-size: 16px; font-weight: 400;
-      line-height: 1.9; color: #ccc;
-      margin-bottom: 20px;
-    }
-    .credits-block {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid #1a1a1a;
-    }
-    .credits-block p {
-      font-size: 14px; color: #999;
-      line-height: 1.9; margin-bottom: 4px;
-    }
-    .credits-block strong {
-      color: #fff; font-weight: 900;
-    }
-    .about-disclaimer {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid #1a1a1a;
-    }
-    .about-disclaimer p {
-      font-size: 13px;
-      color: #777;
-      line-height: 1.9;
-    }
-    .about-disclaimer .eu-tag {
-      font-size: 14px;
-      color: #999;
-      line-height: 1.9;
-      margin-bottom: 4px;
-    }
+/* ═══════════ POETRY ═══════════ */
+.poem{max-width:1080px;margin:13vh auto;padding:0 6vw;}
+.poem .sv{font-weight:700;font-size:clamp(17px,1.85vw,28px);line-height:1.5;letter-spacing:.002em;}
+.poem .sv .ln{display:block;text-wrap:pretty;}
+.poem.center{text-align:center;}
 
-    /* ═══ VISUAL PACK GRID ═══ */
-    .vpack-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      max-width: 80vw;
-      padding-bottom: 60px;
-    }
-    .vpack-item {
-      position: relative;
-      overflow: hidden;
-    }
-    .vpack-item img {
-      width: 100%;
-      display: block;
-      opacity: 0.88;
-      transition: opacity 0.3s;
-    }
-    .vpack-item:hover img { opacity: 1; }
-    .vpack-dl {
-      position: absolute;
-      top: 10px; left: 10px;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.4);
-      background: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-    .vpack-dl:hover { border-color: #c00; }
-    .vpack-dl::after {
-      content: '';
-      display: block;
-      width: 8px; height: 8px;
-      border-right: 2px solid #c00;
-      border-bottom: 2px solid #c00;
-      transform: rotate(45deg);
-      margin-top: -3px;
-    }
+/* ═══════════ IMAGES ═══════════ */
+.ph{position:relative;margin:10vh 0;}
+.ph img{width:100%;display:block;}
+.ph.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+.ph.bleed .cap{padding:24px 4vw 28px;}
+.ph.w70{width:min(74%,1100px);}
+.ph.w55{width:min(58%,820px);}
+.ph.right{margin-left:auto;}
+.ph .imgbox{overflow:hidden;position:relative;}
+.ph .imgbox img{transition:transform 1.2s cubic-bezier(.16,.7,.2,1);will-change:transform;}
+.ph:hover .imgbox img{transform:scale(1.025);}
+.ph .idx{position:absolute;top:14px;left:14px;z-index:3;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;background:rgba(0,0,0,.55);color:#fff;padding:5px 9px;opacity:0;transition:opacity .3s;}
+.ph:hover .idx{opacity:1;}
 
-    .bottom-credit {
-      font-size: 9px; font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #fff;
-      opacity: 0;
-      transition: opacity 0.6s;
-    }
-    .bottom-credit.visible { opacity: 1; }
+.duo2{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;margin:10vh 0;}
+.duo2 .ph{margin:0;}
+.duo2.off{grid-template-columns:1.25fr 1fr;}
 
-    .mobile-only { display: none; }
+/* video blocks */
+.vid{position:relative;margin:10vh 0;}
+.vid video{width:100%;display:block;}
+.vid.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+.vid.bleed .cap{padding:24px 4vw 28px;}
+.vid .live{position:absolute;top:16px;left:16px;z-index:3;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:6px 10px;}
+.vid .live i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:liveblink 1.2s steps(2) infinite;}
+@keyframes liveblink{50%{opacity:.25;}}
+.vidduo{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:10vh 0;align-items:start;}
+.vidduo .vid,.vidduo .ph{margin:0;}
+.vid.w55{width:min(58%,820px);}
+.vid.right{margin-left:auto;}
+.reel{position:relative;margin:12vh 0 0;aspect-ratio:16/9;background:#000;}
+.reel iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 
-    /* ═══ MOBILE ═══ */
-    @media (max-width: 900px) {
-      body { scroll-snap-type: none; }
+/* quotes + facts */
+.quotes{display:grid;grid-template-columns:1.2fr 1fr;gap:6vw;align-items:center;margin:14vh 0 6vh;}
+.quote-block blockquote{font-weight:900;text-transform:uppercase;font-size:clamp(20px,2.6vw,40px);line-height:1.15;letter-spacing:-.01em;}
+.quote-block blockquote em{font-style:normal;color:var(--accent);}
+.quote-block .by{margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.quote-block + .quote-block{margin-top:7vh;}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:8vh 0 0;}
+.facts span{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:8px 14px;transition:all .4s;}
 
-      .hero {
-        justify-content: flex-end;
-      }
-      .hero-text {
-        padding: 0 5vw 80px;
-      }
-      .hero-img {
-        height: 75vh;
-        top: 35%;
-      }
-      .hero-title {
-        font-size: clamp(36px, 12vw, 64px);
-        line-height: 0.88;
-      }
-      .hero-sub { font-size: 15px; }
-      .hero-meta { font-size: 13px; }
+/* ═══════════ FINALE ═══════════ */
+#outro{padding:14vh 0 4vh;}
+/* Outro — black & red only, no white text (independent of auto-theme) */
+#outro .mono-tag{color:#16130a;}
+#outro .intro-line,#outro .intro-line.ghost{color:#16130a;-webkit-text-stroke:0;}
+#outro .intro-line.red{color:var(--red);}
+#outro .quote-block blockquote{color:#16130a;}
+#outro .quote-block .by{color:#16130a;}
+/* reflections — wall of voices (masonry) */
+.refl-wall{columns:2;column-gap:48px;margin:1vh 0 2vh;}
+@media(max-width:760px){.refl-wall{columns:1;}}
+.refl-wall>*{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 48px;display:block;width:100%;}
+.refl-wall .ph{margin:0 0 66px;}
+#outro .refl-wall .quote-block blockquote{font-size:clamp(17px,1.55vw,24px);line-height:1.2;}
+#outro .refl-wall .quote-block.note blockquote{text-transform:none;font-weight:600;letter-spacing:0;line-height:1.55;font-size:clamp(16px,1.3vw,20px);}
+#outro .refl-wall .quote-block.lead blockquote{font-size:clamp(24px,2.7vw,42px);line-height:1.06;}
+#outro .refl-wall .quote-block.accent blockquote{color:var(--red);}
+#finale{padding:6vh 0 0;}
+.finale-state{padding:16vh 6vw 14vh;text-align:center;}
+.finale-state .sv{font-weight:900;text-transform:uppercase;font-size:clamp(30px,5.6vw,96px);line-height:1.02;letter-spacing:-.02em;}
+.finale-state .sv em{font-style:normal;color:var(--accent);}
+.when{margin-top:9vh;}
+.when .big{font-weight:900;text-transform:uppercase;font-size:clamp(40px,8vw,140px);line-height:.9;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.6px var(--ink);}
+.when .sub{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);}
+.when .sub a{color:var(--accent);text-decoration:underline;text-underline-offset:4px;}
 
-      .columns {
-        display: block;
-        height: auto;
-        padding-bottom: 60px;
-      }
-      .column {
-        height: auto;
-        overflow: visible;
-        border-right: none;
-        border-bottom: 1px solid #111;
-      }
+/* ═══════════ CREDITS ═══════════ */
+#credits{padding:4vh 0 6vh;}
+.outro-end{text-align:center;margin:12vh 0 2vh;}
+.outro-end a{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+.outro-end a:hover{color:var(--accent);}
+.credrule{height:1px;background:var(--line);max-width:1460px;margin:0 auto 9vh;}
+.outro-credit{margin-top:13vh;padding-top:5vh;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);line-height:1.85;}
+.outro-credit .oc-label{color:var(--accent);letter-spacing:3px;margin-right:8px;}
+.cred-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:7vw;max-width:1200px;}
+.cred-cols .about p{font-size:clamp(13.5px,1.2vw,16px);line-height:2;color:var(--muted);margin-bottom:20px;transition:color .6s;}
+.cred-cols .about p b{color:var(--ink);}
+.cred-list{display:flex;flex-direction:column;}
+.cred{display:grid;grid-template-columns:1fr;padding:13px 0;border-bottom:1px solid var(--line);}
+.cred .who{font-weight:900;font-size:15px;letter-spacing:.02em;}
+.cred .who span{color:var(--accent);}
+.cred .what{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:3px;transition:color .6s;}
+.eu{margin-top:7vh;max-width:84ch;font-family:var(--helv);font-size:12.5px;line-height:1.7;letter-spacing:.1px;color:var(--muted);transition:color .6s;}
+.credfoot{display:grid;grid-template-columns:1.05fr 1fr;gap:6vw;align-items:start;margin-top:10vh;}
+.credfoot .logos{margin:0;flex-direction:row;align-items:center;gap:30px;flex-wrap:nowrap;}
+.links{display:flex;flex-direction:column;gap:13px;font-family:var(--mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;}
+.links-lbl{color:var(--muted);font-size:10px;letter-spacing:3px;margin-bottom:4px;}
+.links a{text-decoration:none;color:var(--ink);position:relative;padding-left:18px;transition:color .25s;}
+.links a::before{content:"";position:absolute;left:0;top:.4em;width:7px;height:7px;background:var(--red);transition:transform .25s;}
+.links a:hover{color:var(--red);}
+.links a:hover::before{transform:scale(1.4);}
+.links .contact{margin-top:20px;padding-left:0;font-size:11px;letter-spacing:.4px;text-transform:none;line-height:1.75;color:var(--muted);}
+.links .contact b{color:var(--ink);font-weight:700;}
+@media(max-width:760px){.credfoot{grid-template-columns:1fr;gap:6vh;}}
+.credfoot-left .eu{margin-top:22px;max-width:64ch;line-height:1.9;}
+.footerbar{margin-top:8vh;padding:0 0 40px;display:flex;flex-wrap:wrap;gap:16px;justify-content:flex-start;font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.footerbar a{text-decoration:none;}
+.footerbar a:hover{color:var(--accent);}
 
-      /* Act header becomes a tap target */
-      .act-header {
-        position: relative;
-        cursor: pointer;
-        padding: 28px 20px 24px;
-        transition: background 0.3s;
-      }
-      .act-header::after {
-        content: '+';
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 28px;
-        font-weight: 300;
-        color: #555;
-        transition: all 0.3s;
-      }
-      .column.open .act-header::after {
-        content: '−';
-        color: #c00;
-      }
+/* ═══════════ LIGHTBOX ═══════════ */
+#lb{display:none;position:fixed;inset:0;background:rgba(2,2,2,.97);z-index:9500;justify-content:center;align-items:center;}
+#lb.on{display:flex;}
+#lb img{max-width:90vw;max-height:90vh;object-fit:contain;}
+.lbx{position:absolute;top:20px;right:30px;font-size:38px;font-weight:300;color:#fff;z-index:2;}
+.lbn{position:absolute;top:50%;transform:translateY(-50%);font-size:60px;font-weight:300;color:#fff;padding:20px;z-index:2;user-select:none;}
+.lbn.prev{left:14px;}.lbn.next{right:14px;}
+.lbx:hover,.lbn:hover{color:var(--red);}
 
-      .act-title { font-size: 36px; }
-      .act-number { font-size: 14px; }
-      .act-subtitle { font-size: 11px; }
-
-      /* Hide content by default on mobile */
-      .column { overflow-anchor: none; }
-      .column .act-content {
-        display: none;
-      }
-      .column.open .act-content {
-        display: block;
-      }
-
-      /* Play button — hide in header, show when open */
-      .play-btn {
-        display: none;
-      }
-      .column.open .play-btn {
-        display: flex;
-        position: absolute;
-        right: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      @keyframes fadeSlide {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .poetry {
-        font-size: clamp(15px, 4vw, 19px);
-        padding: 26px 20px;
-        line-height: 1.55;
-      }
-
-      .pair { grid-template-columns: 1fr 1fr; }
-
-      /* Bottom bar adjustments */
-      .bottom-bar {
-        flex-direction: row;
-        height: auto;
-        padding: 10px 16px;
-        gap: 8px;
-      }
-      .bottom-credit { font-size: 7px; letter-spacing: 1px; display: none; }
-      .bottom-bar a { font-size: 12px; letter-spacing: 2px; padding: 0 8px; }
-      .dl-btn { font-size: 10px; padding: 6px 12px; white-space: normal; letter-spacing: 1px; text-align: center; line-height: 1.4; }
-
-      .mobile-only { display: block; }
-
-      /* About/vpack overlay mobile fixes */
-      .about-overlay { padding: 60px 5vw 5vh; }
-      .about-close { top: 16px; right: 16px; font-size: 32px; }
-
-      /* About overlay mobile */
-      .about-overlay { padding: 6vh 5vw; }
-      .about-cols {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      .about-overlay h2 { font-size: 28px; margin-bottom: 30px; }
-
-      /* Visual pack mobile */
-      .vpack-grid {
-        grid-template-columns: 1fr;
-        width: 90vw;
-        gap: 16px;
-        margin: 0 auto;
-      }
-      .vpack-item img {
-        max-width: 80vw;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-
-    /* ═══ LIGHTBOX ═══ */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.97);
-      z-index: 500;
-      justify-content: center;
-      align-items: center;
-      cursor: zoom-out;
-    }
-    .lightbox.active { display: flex; }
-    .lightbox img {
-      max-width: 80vw;
-      max-height: 90vh;
-      object-fit: contain;
-    }
-    .lb-close {
-      position: absolute;
-      top: 24px; right: 30px;
-      font-size: 40px; color: #fff;
-      font-weight: 300;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
-      transition: color 0.2s;
-      z-index: 2;
-    }
-    .lb-close:hover { color: #c00; }
-    .lb-prev, .lb-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 64px;
-      font-weight: 300;
-      color: #fff;
-      padding: 20px;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='white'/%3E%3C/svg%3E") 12 12, auto !important;
-      transition: color 0.2s;
-      user-select: none;
-      z-index: 2;
-    }
-    .lb-prev { left: 10px; }
-    .lb-next { right: 10px; }
-    .lb-prev:hover, .lb-next:hover { color: #c00; }
-  </style>
+/* ═══════════ MOBILE ═══════════ */
+@media (max-width:880px){
+  body{cursor:auto;}
+  .topbar{padding:14px 16px 22px;}
+  .topbar::before{content:"";position:absolute;inset:0;z-index:-1;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%);}
+  .topscrim{display:none;}
+  .topnav{display:none;}
+  .mobilenav{display:grid !important;grid-template-columns:repeat(5,minmax(0,1fr)) !important;}
+  .hero-txt{padding:0 6vw 8vh 6vw;}
+  #outro{padding-bottom:120px;}
+  .hero-title{font-size:clamp(28px,9.2vw,76px);}
+  .act-head{top:34px;padding:8px 0 16px;}
+  .act-head .wrap{padding-left:16px;padding-right:16px;}
+  .act-head::before{inset:-20px 0 0 0;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 74%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 74%,transparent 100%);}
+  .act-head .ttl{font-size:24px;}
+  .act-head .org{display:none;}
+  .play .plbl{display:none;}
+  /* no hover on touch → show image/video credits permanently */
+  .ph .cap,.vid .cap{opacity:1;}
+  .co-vcap{opacity:1;}
+  .hero-cred{display:none;} /* redundant on mobile — credit is in the impressum */
+  .ph.w70,.ph.w55{width:100%;}
+  .duo2,.duo2.off,.vidduo{grid-template-columns:1fr;gap:10vh;}
+  .vidduo{gap:26px;}
+  .act-ghostnum{font-size:56vw;right:-10vw;}
+  .cred-cols{grid-template-columns:1fr;gap:8vh;}
+  .quotes{grid-template-columns:1fr;gap:6vh;}
+  .poem{margin:9vh auto;}
+}
+/* ═══════════ CREDITS OVERLAY — split ═══════════ */
+#credits-overlay{position:fixed;inset:0;z-index:900;display:grid;grid-template-columns:40% 60%;background:#050505;color:#fff;font-family:var(--helv);transform:translateY(100%);transition:transform .7s cubic-bezier(.16,.7,.2,1),opacity .5s,visibility .7s;opacity:0;visibility:hidden;}
+#credits-overlay.open{transform:translateY(0);opacity:1;visibility:visible;}
+.co-visual{position:relative;overflow:hidden;background:#000;}
+.co-visual img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block;}
+.co-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(5,5,5,.96) 100%);pointer-events:none;}
+.co-vcap{position:absolute;left:0;bottom:0;padding:18px 20px;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#fff;z-index:2;opacity:0;transition:opacity .35s;}
+.co-visual:hover .co-vcap{opacity:1;}
+.co-panel{position:relative;overflow-y:auto;background:radial-gradient(120% 80% at 110% -5%, rgba(224,0,36,.18), transparent 55%);}
+.co-bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:20px 3vw 28px;z-index:5;}
+.co-bar::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);background:linear-gradient(180deg,rgba(5,5,5,.6),rgba(5,5,5,.04));-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 52%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 52%,transparent 100%);}
+.co-bar .lang{display:flex;gap:10px;align-items:center;font-weight:900;font-size:13px;letter-spacing:3px;text-transform:uppercase;}
+.co-bar .lang a{cursor:pointer;color:rgba(255,255,255,.6);transition:color .25s;}
+.co-bar .lang a.active{color:#fff;}
+.co-bar .lang a:hover{color:var(--accent);}
+.co-bar .lang .sep{color:rgba(255,255,255,.4);font-weight:400;}
+.co-close{background:none;border:none;color:#fff;font-size:42px;line-height:.6;cursor:pointer;padding:0 4px;transition:color .25s,transform .4s;}
+.co-close:hover{color:var(--accent);transform:rotate(90deg);}
+.co-inner{padding:1vh 3.5vw 7vh;}
+.co-inner>*{opacity:0;transform:translateY(22px);animation:coReveal .75s cubic-bezier(.16,.7,.2,1) forwards;animation-play-state:paused;}
+#credits-overlay.open .co-inner>*{animation-play-state:running;}
+.co-inner>*:nth-child(2){animation-delay:.07s}.co-inner>*:nth-child(3){animation-delay:.14s}.co-inner>*:nth-child(4){animation-delay:.21s}.co-inner>*:nth-child(5){animation-delay:.28s}.co-inner>*:nth-child(6){animation-delay:.35s}
+@keyframes coReveal{to{opacity:1;transform:none;}}
+.co-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.co-title{font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,58px);line-height:.9;letter-spacing:-.02em;margin-bottom:3vh;}
+.co-title span{color:var(--accent);}
+.co-lede{font-size:clamp(15px,1.2vw,19px);line-height:1.45;max-width:66ch;color:rgba(255,255,255,.82);margin:1vh 0 5vh;}
+.co-lede b{color:#fff;font-weight:700;}
+.co-lede .sl{color:var(--accent);font-weight:700;}
+.co-leads{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;margin-bottom:4vh;padding-bottom:3.5vh;border-bottom:1px solid rgba(255,255,255,.16);}
+.lead-name{font-weight:900;text-transform:uppercase;font-size:clamp(18px,1.7vw,26px);line-height:1;letter-spacing:-.01em;}
+.lead-role{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:8px;}
+.co-list{display:grid;grid-template-columns:1fr 1fr;gap:0 2.5vw;}
+.co-col{display:flex;flex-direction:column;gap:18px;}
+.co-list .who{font-weight:700;font-size:15.5px;line-height:1.15;}
+.co-list .what{font-family:var(--helv);font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px;line-height:1.3;}
+.co-links{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:14px 28px;margin:7.5vh 0 4vh;font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;}
+.co-links a{cursor:pointer;text-decoration:none;color:#fff;position:relative;padding-left:15px;transition:color .25s;}
+.co-links a::before{content:"";position:absolute;left:0;top:.45em;width:6px;height:6px;background:var(--accent);}
+.co-links a:hover{color:var(--accent);}
+.co-strip{margin-top:6vh;padding-top:1vh;display:flex;justify-content:flex-start;align-items:center;gap:3vw;flex-wrap:wrap;}
+.co-strip .lg{width:auto;display:block;}
+.lg-munch{height:40px;margin-right:1.8vw;}
+.lg-eu{height:52px;}
+.lg-xtreme{height:58px;}
+.co-eu-group{display:flex;align-items:center;gap:16px;}
+.co-eu{font-family:var(--helv);font-size:10px;line-height:1.5;color:rgba(255,255,255,.62);max-width:42ch;letter-spacing:0;}
+@media (max-width:860px){
+  /* mobile: photo fixed in top row (42vh), panel scrolls internally; SV/EN sits in a clean frosted bar pinned at the panel top — it never moves over the photo */
+  #credits-overlay{grid-template-columns:1fr;grid-template-rows:42vh 1fr;overflow:hidden;}
+  .co-visual{height:42vh;}
+  .co-visual img{object-position:center 70%;}
+  .co-visual::after{display:none;}
+  .co-vcap{bottom:6px;}
+  .co-panel{overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .co-bar{padding:15px 4vw;}
+  .co-bar::before{inset:0;background:rgba(8,8,8,.5);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 100%);mask-image:linear-gradient(180deg,#000 0%,#000 100%);}
+  .co-strip{flex-wrap:wrap;column-gap:7vw;row-gap:16px;}
+  .lg-munch{margin-right:0;}
+  .co-eu-group{display:contents;}
+  .co-eu{flex-basis:100%;width:100%;max-width:none;order:9;white-space:normal;text-align:left;font-size:11px;line-height:1.55;}
+  .co-leads{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:480px){.co-list{grid-template-columns:1fr;gap:18px;}.co-col{gap:18px;}.co-leads{grid-template-columns:1fr;}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  .rv{opacity:1;transform:none;}
+}
+</style>
 </head>
 <body class="lang-sv">
 
-  <!-- ═══ LANGUAGE TOGGLE ═══ -->
-  <div class="lang-toggle">
-    <a data-lang="sv" class="active" onclick="setLang('sv')">SV</a>
+<!-- ═══════════ LOADER ═══════════ -->
+<div id="loader">
+  <div class="wordmark">ÅTERFÖDELSEN <span>/</span> REBIRTH</div>
+  <div class="line"><i id="ldline"></i></div>
+  <div class="lbl">Entering the journey</div>
+</div>
+
+<!-- ═══════════ CHROME ═══════════ -->
+<div id="progress"></div>
+<nav class="topnav">
+  <span class="track-fill" id="trackFill"></span>
+  <a href="#hero" data-spy="hero"><span class="dot"></span><span class="lbl"><span class="step">Start</span><span class="name">Intro</span></span></a>
+  <a href="#act1" data-spy="act1"><span class="dot"></span><span class="lbl"><span class="step">Act I</span><span class="name">Birth</span></span></a>
+  <a href="#act2" data-spy="act2"><span class="dot"></span><span class="lbl"><span class="step">Act II</span><span class="name">Love</span></span></a>
+  <a href="#act3" data-spy="act3"><span class="dot"></span><span class="lbl"><span class="step">Act III</span><span class="name">Death</span></span></a>
+  <a href="#outro" data-spy="outro"><span class="dot"></span><span class="lbl"><span class="step">End</span><span class="name">Outro</span></span></a>
+</nav>
+<nav class="mobilenav">
+  <a href="#hero" data-spy="hero"><span class="mn-step">Intro</span></a>
+  <a href="#act1" data-spy="act1"><span class="mn-step">Birth</span><span class="mn-name">Act I</span></a>
+  <a href="#act2" data-spy="act2"><span class="mn-step">Love</span><span class="mn-name">Act II</span></a>
+  <a href="#act3" data-spy="act3"><span class="mn-step">Death</span><span class="mn-name">Act III</span></a>
+  <a href="#outro" data-spy="outro"><span class="mn-step">Outro</span></a>
+</nav>
+<div class="topbar">
+  <div class="lang">
+    <a data-l="sv" class="active" onclick="setLang('sv')">SV</a>
     <span class="sep">/</span>
-    <a data-lang="en" onclick="setLang('en')">EN</a>
+    <a data-l="en" onclick="setLang('en')">EN</a>
   </div>
-
-  <!-- ═══ HERO ═══ -->
-  <div class="hero">
-    <img class="hero-img" src="img/shared/hero_mouth.jpg" alt="">
-    <div class="hero-text">
-      <h1 class="hero-title">
-        ÅTERFÖDELSEN<br><span class="slash">/</span> REBIRTH
-      </h1>
-      <div class="hero-sub">BY SILVANA IMAM & PAULA STRUNDEN</div>
-      <div class="hero-meta">MUNCH MUSEUM OSLO, 2026</div>
-    </div>
-    <div class="scroll-hint">&darr; Scroll</div>
+  <div class="tb-links">
+    <a href="#" onclick="openCredits();return false;">About</a>
   </div>
+</div>
+<div id="grain"></div>
+<div class="leftscrim"></div>
+<div class="topscrim"></div>
+<div id="cring"></div><div id="cdot"></div>
 
-  <!-- ═══ THREE COLUMNS ═══ -->
-  <div class="columns">
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="bg"><video id="heroVid" src="media/hero_teaser.mp4" autoplay muted loop playsinline poster="img/final/act1_mouth_03.jpg"></video></div>
+  <div class="shade"></div>
+  <div class="hero-cred">XR Experience teaser: Christian A. Heredia</div>
+  <div class="hero-txt">
+    <h1 class="hero-title">ÅTERFÖDELSEN<br><span class="slash">/</span> REBIRTH</h1>
+    <div class="hero-sub">Silvana Imam ✕ Paula Strunden</div>
+    <div class="hero-meta">An immersive XR experience in three acts, commissioned by MUNCH Oslo, 2025–2026</div>
+  </div>
+  <div class="scroll-cue">Scroll<i></i></div>
+</section>
 
-    <!-- ═══ ACT I: BIRTH ═══ -->
-    <div class="column col-1">
-      <div class="act-header">
-        <div class="act-header-left">
-          <div class="act-number">Act I</div>
-          <div class="act-title">BIRTH</div>
-          <div class="act-subtitle">Mouth</div>
-        </div>
-        <button class="play-btn" data-audio="sound/act1.mp3" onclick="togglePlay(this)" title="Listen to Act I">
-          <div class="play-tri"></div>
-        </button>
-      </div>
-      <div class="act-content">
-      <div class="poetry poetry-sv">
-        Vem är jag?
-      </div>
-      <div class="poetry poetry-en">
-        Who am I?
-      </div>
+<!-- ═══════════ INTRO + ONBOARDING ═══════════ -->
+<section id="intro">
+  <div class="wrap">
+    <h2 class="intro-line ghost rv">What happens</h2>
+    <h2 class="intro-line ghost rv d1">when the noise stops?</h2>
+    <h2 class="intro-line rv d2">When the screens go dark?</h2>
+    <h2 class="intro-line red rv d3">When you are left with<br>nothing but a body?</h2>
 
-      <div class="act-images">
-        <img src="img/sketches/munch41.png" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Hela världen är tom<br>
-        Hör du?<br>
-        Det finns våld i vår tystnad<br>
-        Känner du?<br>
-        Vårt blod är en vit flagga, vajar fram och tillbaka<br>
-        Letar efter lugn när allt vi vet är krig<br>
-        Den här världen varar i två dagar; ena dagen är den emot dig, andra dagen är den med dig<br>
-        När den är emot dig, ha tålamod<br>
-        När den är med dig, var ödmjuk
-      </div>
-      <div class="poetry poetry-en">
-        The whole world is empty<br>
-        Can you hear?<br>
-        There is violence in our silence<br>
-        Can you feel it?<br>
-        Our blood is a white flag, waving back and forth<br>
-        Searching for calm when all we know is war<br>
-        This world lasts two days; one day it is against you, the next day it is with you<br>
-        When it is against you, have patience<br>
-        When it is with you, be humble
-      </div>
-
-      <div class="act-images">
-        <img src="img/act1/XtremeMunch_ACT1_visual_03.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Dina vapen är din själviska strategi, ditt försvar som skadar din själ<br>
-        Vem vill du vara?<br>
-        Tid är begränsad och som du lever i total ignorans att du ska få lyxen att vakna imorgon<br>
-        Kära du, vad är din hemlighet?
-      </div>
-      <div class="poetry poetry-en">
-        Your weapons are your selfish strategy, your defenses that wound your soul<br>
-        Who do you want to be?<br>
-        Time is limited and yet you live in total ignorance, as if you will be granted the luxury of waking up tomorrow<br>
-        Oh my dear, what is your secret?
-      </div>
-
-      <div class="act-images">
-        <img src="img/act1/ref1.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Förläng din värme<br>
-        Försvara din sanning<br>
-        Minns du allt du har sett?<br>
-        Allt du förlorade genom att titta på TV-skärmen<br>
-        Alla förlorade, ingen vann<br>
-        Och mod hittades ingenstans, förutom i ögonen på dom som slog tillbaka och försvann
-      </div>
-      <div class="poetry poetry-en">
-        Extend your warmth<br>
-        Defend your truth<br>
-        Do you remember everything you saw?<br>
-        Everything you lost while watching TV<br>
-        Everybody lost, no one won<br>
-        And courage was found nowhere, except in the eyes of those who fought back and disappeared
-      </div>
-
-      <div class="act-images">
-        <img src="img/act1/XtremeMunch_ACT1_visual_01.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Vem matar din rädsla?<br>
-        Vem när dina drömmar?<br>
-        Du kan inte köpa mig från mina egna ord<br>
-        Dom vill se blod<br>
-        Jag ser sorg, den har ingen längd
-      </div>
-      <div class="poetry poetry-en">
-        Who feeds your fear?<br>
-        Who nourishes your dreams?<br>
-        You cannot buy me from my own words<br>
-        They want to see blood<br>
-        I see sorrow, it has no length
-      </div>
-
-      <div class="act-images">
-        <img src="img/act1/XtremeMunch_ACT1_visual_02.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Jag undrar om sanningen kommer med en sång?
-      </div>
-      <div class="poetry poetry-en">
-        I wonder if the truth comes with a song?
-      </div>
-
-      <div class="act-images">
-        <img src="img/act1/chatgpt_jan29.png" onclick="openLB(this)">
-        <img src="img/act1/XtremeMunch_ACT1_visual_04.jpg" onclick="openLB(this)">
-      </div>
-      </div>
+    <div class="ph bleed rv" style="margin-top:14vh;">
+      <div class="imgbox"><span class="idx">FESTSALEN</span><img src="img/blindt/blindt_02.jpg" alt="The whole installation — Festsalen, MUNCH Oslo" onclick="openLB(this)" data-speed="0.04"></div>
+      <div class="cap">The installation — Festsalen, MUNCH Oslo · Photo: Blindt</div>
     </div>
 
-    <!-- ═══ ACT II: LOVE ═══ -->
-    <div class="column col-2">
-      <div class="act-header">
-        <div class="act-header-left">
-          <div class="act-number">Act II</div>
-          <div class="act-title">LOVE</div>
-          <div class="act-subtitle">Heart</div>
-        </div>
-        <button class="play-btn" data-audio="sound/act2.mp3" onclick="togglePlay(this)" title="Listen to Act II">
-          <div class="play-tri"></div>
-        </button>
+    <div class="duo2 rv" style="margin-top:14vh;">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ONBOARDING — POET</span><img src="img/blindt/blindt_vest.jpg" alt="Putting on the POET vest" onclick="openLB(this)"></div>
+        <div class="cap">Onboarding — the POET vest · Photo: Blindt</div>
       </div>
-      <div class="act-content">
-      <div class="act-images">
-        <img src="img/sketches/sketch_love.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Det är sent och det regnar<br>
-        Jag är elden och din varma längtan<br>
-        Följ mig hem, jag stoppar mina känslor i dig<br>
-        Ge mig din hand, jag ger dig mina tankar<br>
-        Det är ett rättvist utbyte
-      </div>
-      <div class="poetry poetry-en">
-        It is late and it is raining<br>
-        I am the fire and your warm longing<br>
-        Follow me home, I put my feelings inside you<br>
-        Give me your hand, I give you my thoughts<br>
-        It is a fair exchange
-      </div>
-
-      <div class="act-images">
-        <div class="pair">
-          <img src="img/act2/XtremeMunch_ACT2_visual_05.jpg" onclick="openLB(this)">
-          <img src="img/act2/XtremeMunch_ACT2_visual_06.jpg" onclick="openLB(this)">
-        </div>
-        <img src="img/act2/XtremeMunch_ACT2_visual_07.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Var är du solen?<br>
-        Kom tillbaka så att jag kan förlåta dig<br>
-        Har du hittat orden du tappade sist vi sågs?<br>
-        Trippellås i mitt hus<br>
-        Jag håller dig i mina drömmar, för att i mina drömmar har du inget slut<br>
-        Mellan dina händer glömmer jag allting förutom oss<br>
-        Nånstans mellan eufori och sorg<br>
-        Jag kan inte separera mig själv från vad jag minns<br>
-        Och jag, jag existerar bara i värmen av din blick<br>
-        Hur många timmar tills himlen är din, igen?
-      </div>
-      <div class="poetry poetry-en">
-        Where are you, sun?<br>
-        Come back so that I can forgive you<br>
-        Have you found the words you lost the last time we saw each other?<br>
-        Triple-lock my house<br>
-        I hold you in my dreams, because in my dreams you have no end<br>
-        Between your hands I forget everything except us<br>
-        Somewhere between euphoria and sorrow<br>
-        I cannot separate myself from what I remember<br>
-        And I, I exist only in the warmth of your gaze<br>
-        How many hours until the sky is yours, again?
-      </div>
-
-      <div class="act-images">
-        <img src="img/act2/screenshot1.jpg" onclick="openLB(this)">
-        <div class="pair">
-          <img src="img/act2/screenshot2.jpg" onclick="openLB(this)">
-          <img src="img/act2/screenshot3.jpg" onclick="openLB(this)">
-        </div>
-        <img src="img/act2/ref2.jpg" onclick="openLB(this)">
-        <img src="img/act2/ref3.jpg" onclick="openLB(this)">
-        <img src="img/act2/XtremeMunch_ACT2_visual_09.jpg" onclick="openLB(this)">
-      </div>
-      </div>
-    </div>
-
-    <!-- ═══ ACT III: DEATH ═══ -->
-    <div class="column col-3">
-      <div class="act-header">
-        <div class="act-header-left">
-          <div class="act-number">Act III</div>
-          <div class="act-title">DEATH</div>
-          <div class="act-subtitle">Gut</div>
-        </div>
-        <button class="play-btn" data-audio="sound/act3.mp3" onclick="togglePlay(this)" title="Listen to Act III">
-          <div class="play-tri"></div>
-        </button>
-      </div>
-      <div class="act-content">
-      <div class="poetry poetry-sv">
-        I varje storm tar regnet slut<br>
-        I varje steg finns Gud<br>
-        Jag lägger armen om ditt liv<br>
-        Du kan inte konsumera dig till frid<br>
-        Du kan inte köpa mig från mina egna ord<br>
-        Det är bara jag, jag som gömmer mig bakom min egen illusion
-      </div>
-      <div class="poetry poetry-en">
-        In every storm the rain comes to an end<br>
-        Every step is God<br>
-        I wrap my arm around your life<br>
-        You cannot consume your way to peace<br>
-        You cannot buy me from my own words<br>
-        It is only me, hiding behind my own illusion
-      </div>
-
-      <div class="act-images">
-        <img src="img/act3/XtremeMunch_ACT3_visual_01.jpg" onclick="openLB(this)">
-        <div class="pair">
-          <img src="img/act3/XtremeMunch_ACT3_visual_02.jpg" onclick="openLB(this)">
-          <img src="img/act3/XtremeMunch_ACT3_visual_03.jpg" onclick="openLB(this)">
-        </div>
-      </div>
-
-      <div class="poetry poetry-sv">
-        Jag kan inte separera mig själv från vad jag minns<br>
-        Allt är suddigt förutom värmen av din kind<br>
-        Våren kom och gick<br>
-        Sol vatten vind<br>
-        Jag slås av ljuset från din frånvaro<br>
-        Och ljudet av piano
-      </div>
-      <div class="poetry poetry-en">
-        I cannot separate myself from what I remember<br>
-        Everything is blurred except the warmth of your cheek<br>
-        Spring came and went<br>
-        Sun water wind<br>
-        I am struck by the light of your absence<br>
-        And the sound of piano
-      </div>
-
-      <div class="act-images">
-        <img src="img/sketches/sketch_death_4.jpg" onclick="openLB(this)">
-        <img src="img/act3/ref1.jpg" onclick="openLB(this)">
-        <img src="img/act3/ref2.jpg" onclick="openLB(this)">
-      </div>
-
-      <div class="poetry poetry-sv">
-        Jag kom och jag såg vad jag ville se<br>
-        Allt som blev, som solen rörde<br>
-        Slut dina ögon för att se, skönhet går i dina steg<br>
-        Och<br>
-        Om ljus finns i ditt hjärta kommer du att hitta hem<br>
-        För att, en dag tar det bara slut
-      </div>
-      <div class="poetry poetry-en">
-        I came and I saw what I wanted to see<br>
-        All that came to be, all the sun touched<br>
-        Close your eyes and you'll see, beauty walks in your steps<br>
-        And if there is light in your heart, you will find your way home<br>
-        Because, one day it all ends
-      </div>
-
-      <div class="poetry poetry-sv">
-        Slut?<br>
-        Det känns som slutet<br>
-        Men du ser en solnedgång, som i själva verket är en gryning.
-      </div>
-      <div class="poetry poetry-en">
-        Ends?<br>
-        It feels like the end<br>
-        But you see a sunset, that in reality is dawn.
-      </div>
-
-      <div class="act-images">
-        <img src="img/act3/XtremeMunch_ACT3_visual_08.jpg" onclick="openLB(this)">
-      </div>
+      <div class="ph" data-speed="0.05">
+        <div class="imgbox"><span class="idx">ONBOARDING — KRAFT</span><img src="img/blindt/blindt_03.jpg" alt="The KRAFT ring passed between two hands" onclick="openLB(this)"></div>
+        <div class="cap">Onboarding — the KRAFT ring · Photo: Blindt</div>
       </div>
     </div>
 
   </div>
+</section>
 
-  <!-- ═══ BOTTOM BAR ═══ -->
-  <div class="bottom-bar">
-    <span class="bottom-credit">&copy; Website Design & Concept: Paula Strunden, 2026</span>
-    <div class="right">
-      <a onclick="document.getElementById('about').classList.add('active')">About</a>
-      <a class="dl-btn" onclick="document.getElementById('vpack').classList.add('active')">&#8595; VISUAL PACK</a>
+<!-- ═══════════ ACT I — BIRTH ═══════════ -->
+<section class="act" id="act1">
+  <div class="act-ghostnum" data-speed="-0.1">I</div>
+  <header class="act-head"><div class="wrap">
+      <div class="lft">
+        <span class="num">Act I</span>
+        <span class="ttl">Birth</span>
+        <span class="org">Mouth — sitting · overwhelmed · smashing</span>
+      </div>
+      <button class="play" data-audio="sound/act1.mp3" title="Listen to Act I">
+        <span class="eq"><i></i><i></i><i></i><i></i></span>
+        <span class="plbl">Listen — Act I</span>
+        <span class="ring"><span class="tri"></span></span>
+      </button>
+    </div></header>
+  <div class="wrap">
+
+    <div class="poem rv">
+      <div class="sv lang-sv">Vem är jag?</div>
+      <div class="sv lang-en">Who am I?</div>
+    </div>
+
+    <div class="ph bleed rv">
+      <div class="imgbox"><span class="idx">ACT I</span><img src="img/blindt/blindt_01.jpg" alt="Visitor seated before the red portal — Festsalen, MUNCH" onclick="openLB(this)" data-speed="0.04"></div>
+      <div class="cap">The waiting body — Festsalen, MUNCH Oslo · Photo: Blindt</div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Hela världen är tom</span><span class="ln">Hör du?</span><span class="ln">Det finns våld i vår tystnad</span><span class="ln">Känner du?</span><span class="ln">Vårt blod är en vit flagga, vajar fram och tillbaka</span><span class="ln">Letar efter lugn när allt vi vet är krig</span><span class="ln">Den här världen varar i två dagar; ena dagen är den emot dig, andra dagen är den med dig</span><span class="ln">När den är emot dig, ha tålamod</span><span class="ln">När den är med dig, var ödmjuk</span></div>
+      <div class="sv lang-en"><span class="ln">The whole world is empty</span><span class="ln">Can you hear?</span><span class="ln">There is violence in our silence</span><span class="ln">Can you feel it?</span><span class="ln">Our blood is a white flag, waving back and forth</span><span class="ln">Searching for calm when all we know is war</span><span class="ln">This world lasts two days; one day it is against you, the next day it is with you</span><span class="ln">When it is against you, have patience</span><span class="ln">When it is with you, be humble</span></div>
+    </div>
+
+    <div class="vidduo rv">
+      <div class="vid">
+        <span class="live"><i></i>REC — Act I</span>
+        <video poster="img/posters/birth_funnel.jpg" preload="metadata" src="media/birth_funnel.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">The news screens pour into the funnel — live capture</div>
+      </div>
+      <div class="vid">
+        <span class="live"><i></i>REC — Act I</span>
+        <video poster="img/posters/birth_opening.jpg" preload="metadata" src="media/birth_opening.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">Entering the mouth — live capture</div>
+      </div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Dina vapen är din själviska strategi, ditt försvar som skadar din själ</span><span class="ln">Vem vill du vara?</span><span class="ln">Tid är begränsad och som du lever i total ignorans att du ska få lyxen att vakna imorgon</span><span class="ln">Kära du, vad är din hemlighet?</span></div>
+      <div class="sv lang-en"><span class="ln">Your weapons are your selfish strategy, your defenses that wound your soul</span><span class="ln">Who do you want to be?</span><span class="ln">Time is limited and yet you live in total ignorance, as if you will be granted the luxury of waking up tomorrow</span><span class="ln">Oh my dear, what is your secret?</span></div>
+    </div>
+
+    <div class="duo2 rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT I</span><img src="img/blindt/blindt_04.jpg" alt="Visitor in headset bathed in red light" onclick="openLB(this)"></div>
+        <div class="cap">Inside the experience · Photo: Blindt</div>
+      </div>
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT I</span><img src="img/final/act1_mouth_roses.jpg" alt="The mouth — Act I in-world, roses and red moon" onclick="openLB(this)"></div>
+        <div class="cap">The mouth — Act I, in-world</div>
+      </div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Förläng din värme</span><span class="ln">Försvara din sanning</span><span class="ln">Minns du allt du har sett?</span><span class="ln">Allt du förlorade genom att titta på TV-skärmen</span><span class="ln">Alla förlorade, ingen vann</span><span class="ln">Och mod hittades ingenstans, förutom i ögonen på dom som slog tillbaka och försvann</span></div>
+      <div class="sv lang-en"><span class="ln">Extend your warmth</span><span class="ln">Defend your truth</span><span class="ln">Do you remember everything you saw?</span><span class="ln">Everything you lost while watching TV</span><span class="ln">Everybody lost, no one won</span><span class="ln">And courage was found nowhere, except in the eyes of those who fought back and disappeared</span></div>
+    </div>
+
+    <div class="vid bleed rv">
+      <span class="live"><i></i>Live in-headset capture</span>
+      <video poster="img/posters/birth_smash.jpg" preload="metadata" src="media/birth_smash.mp4" autoplay muted loop playsinline></video>
+      <div class="cap">They come towards you — loads of them. You grab. You smash. You fight.</div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Vem matar din rädsla?</span><span class="ln">Vem när dina drömmar?</span><span class="ln">Du kan inte köpa mig från mina egna ord</span><span class="ln">Dom vill se blod</span><span class="ln">Jag ser sorg, den har ingen längd</span></div>
+      <div class="sv lang-en"><span class="ln">Who feeds your fear?</span><span class="ln">Who nourishes your dreams?</span><span class="ln">You cannot buy me from my own words</span><span class="ln">They want to see blood</span><span class="ln">I see sorrow, it has no length</span></div>
+    </div>
+
+    <div class="poem center rv">
+      <div class="sv lang-sv">Jag undrar om sanningen kommer med en sång?</div>
+      <div class="sv lang-en">I wonder if the truth comes with a song?</div>
+    </div>
+
+    <div class="vidduo rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT I</span><img src="img/final/act1_mouth_01.jpg" alt="The screens swarm under a red moon" onclick="openLB(this)"></div>
+        <div class="cap">The screens swarm under a red moon</div>
+      </div>
+      <div class="vid">
+        <span class="live"><i></i>REC — Into the mouth</span>
+        <video poster="img/posters/birth_mouth.jpg" preload="metadata" src="media/birth_mouth.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">Into the mouth — rose petals streaming towards you, live capture</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ═══ ABOUT OVERLAY ═══ -->
-  <div class="about-overlay" id="about">
-    <span class="about-close" onclick="document.getElementById('about').classList.remove('active')">&times;</span>
-    <h2>ÅTERFÖDELSEN <span class="slash">/</span> REBIRTH</h2>
-    <div class="about-cols">
+<!-- ═══════════ ACT II — LOVE ═══════════ -->
+<section class="act" id="act2">
+  <div class="act-ghostnum" data-speed="-0.1" style="right:auto;left:-3vw;">II</div>
+  <header class="act-head"><div class="wrap">
+      <div class="lft">
+        <span class="num">Act II</span>
+        <span class="ttl">Love</span>
+        <span class="org">Heart — intimate · breathing · touching</span>
+      </div>
+      <button class="play" data-audio="sound/act2.mp3" title="Listen to Act II">
+        <span class="eq"><i></i><i></i><i></i><i></i></span>
+        <span class="plbl">Listen — Act II</span>
+        <span class="ring"><span class="tri"></span></span>
+      </button>
+    </div></header>
+  <div class="wrap">
+
+    <div class="ph bleed rv">
+      <div class="imgbox"><span class="idx">ACT II</span><img src="img/final/act2_church.jpg" alt="The Church of Love — Act II in-world" onclick="openLB(this)" data-speed="0.05"></div>
+      <div class="cap">The Church of Love — Act II, in-world</div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Det är sent och det regnar</span><span class="ln">Jag är elden och din varma längtan</span><span class="ln">Följ mig hem, jag stoppar mina känslor i dig</span><span class="ln">Ge mig din hand, jag ger dig mina tankar</span><span class="ln">Det är ett rättvist utbyte</span></div>
+      <div class="sv lang-en"><span class="ln">It is late and it is raining</span><span class="ln">I am the fire and your warm longing</span><span class="ln">Follow me home, I put my feelings inside you</span><span class="ln">Give me your hand, I give you my thoughts</span><span class="ln">It is a fair exchange</span></div>
+    </div>
+
+    <div class="duo2 rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT II</span><img src="img/final/act2_heart_01.jpg" alt="The pearl heart — Act II in-world" onclick="openLB(this)"></div>
+        <div class="cap">Inside a breathing heart</div>
+      </div>
+      <div class="ph" data-speed="0.05">
+        <div class="imgbox"><span class="idx">ACT II</span><img src="img/final/act2_heart_02.jpg" alt="Act II in-world" onclick="openLB(this)"></div>
+        <div class="cap">Memory fragments, past, future, desire</div>
+      </div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Var är du solen?</span><span class="ln">Kom tillbaka så att jag kan förlåta dig</span><span class="ln">Har du hittat orden du tappade sist vi sågs?</span><span class="ln">Trippellås i mitt hus</span><span class="ln">Jag håller dig i mina drömmar, för att i mina drömmar har du inget slut</span><span class="ln">Mellan dina händer glömmer jag allting förutom oss</span><span class="ln">Nånstans mellan eufori och sorg</span><span class="ln">Jag kan inte separera mig själv från vad jag minns</span><span class="ln">Och jag, jag existerar bara i värmen av din blick</span><span class="ln">Hur många timmar tills himlen är din, igen?</span></div>
+      <div class="sv lang-en"><span class="ln">Where are you, sun?</span><span class="ln">Come back so that I can forgive you</span><span class="ln">Have you found the words you lost the last time we saw each other?</span><span class="ln">Triple-lock my house</span><span class="ln">I hold you in my dreams, because in my dreams you have no end</span><span class="ln">Between your hands I forget everything except us</span><span class="ln">Somewhere between euphoria and sorrow</span><span class="ln">I cannot separate myself from what I remember</span><span class="ln">And I, I exist only in the warmth of your gaze</span><span class="ln">How many hours until the sky is yours, again?</span></div>
+    </div>
+
+    <div class="vidduo rv">
+      <div class="vid">
+        <span class="live"><i></i>Inside the heart</span>
+        <video poster="img/posters/heart_a.jpg" preload="metadata" src="media/heart_a.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">The walls pulse — live capture</div>
+      </div>
+      <div class="vid">
+        <span class="live"><i></i>Inside the heart</span>
+        <video poster="img/posters/heart_b.jpg" preload="metadata" src="media/heart_b.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">A ghost appears — live capture</div>
+      </div>
+    </div>
+
+    <div class="vid bleed rv">
+      <span class="live"><i></i>Live in-headset capture — 4K</span>
+      <video poster="img/posters/act2_loop_4k.jpg" src="media/act2_loop_4k.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <div class="cap">Somewhere across, a stranger inside the same heart — Act II, live capture</div>
+    </div>
+
+    <div class="duo2 rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT II</span><img src="img/final/act2_heart_03.jpg" alt="Act II in-world — the heart opens" onclick="openLB(this)"></div>
+        <div class="cap">The heart opens</div>
+      </div>
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT II</span><img src="img/final/act2_heart_topdown.jpg" alt="Looking down into the heart" onclick="openLB(this)"></div>
+        <div class="cap">Looking down into the heart</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ ACT III — DEATH / REBIRTH ═══════════ -->
+<section class="act" id="act3">
+  <div class="act-ghostnum" data-speed="-0.1">III</div>
+  <header class="act-head"><div class="wrap">
+      <div class="lft">
+        <span class="num">Act III</span>
+        <span class="ttl">Death</span>
+        <span class="org">Gut — ascending · floating · dissolving</span>
+      </div>
+      <button class="play" data-audio="sound/act3.mp3" title="Listen to Act III">
+        <span class="eq"><i></i><i></i><i></i><i></i></span>
+        <span class="plbl">Listen — Act III</span>
+        <span class="ring"><span class="tri"></span></span>
+      </button>
+    </div></header>
+  <div class="wrap">
+
+    <div class="vidduo rv">
+      <div class="vid">
+        <span class="live"><i></i>REC — The door</span>
+        <video poster="img/posters/church_door.jpg" preload="metadata" src="media/church_door.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">The church door opens — live capture</div>
+      </div>
+      <div class="vid">
+        <span class="live"><i></i>REC — The stairs</span>
+        <video poster="img/posters/stairs.jpg" preload="metadata" src="media/stairs.mp4" autoplay muted loop playsinline></video>
+        <div class="cap">Walking up the stairs — live capture</div>
+      </div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">I varje storm tar regnet slut</span><span class="ln">I varje steg finns Gud</span><span class="ln">Jag lägger armen om ditt liv</span><span class="ln">Du kan inte konsumera dig till frid</span><span class="ln">Du kan inte köpa mig från mina egna ord</span><span class="ln">Det är bara jag, jag som gömmer mig bakom min egen illusion</span></div>
+      <div class="sv lang-en"><span class="ln">In every storm the rain comes to an end</span><span class="ln">Every step is God</span><span class="ln">I wrap my arm around your life</span><span class="ln">You cannot consume your way to peace</span><span class="ln">You cannot buy me from my own words</span><span class="ln">It is only me, hiding behind my own illusion</span></div>
+    </div>
+
+    <div class="ph bleed rv">
+      <div class="imgbox"><span class="idx">ACT III</span><img src="img/final/act3_portal_01.jpg" alt="The stairway of pearls — Act III in-world" onclick="openLB(this)" data-speed="0.05"></div>
+      <div class="cap">You rise. The sky opens. — Act III, in-world</div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Jag kan inte separera mig själv från vad jag minns</span><span class="ln">Allt är suddigt förutom värmen av din kind</span><span class="ln">Våren kom och gick</span><span class="ln">Sol vatten vind</span><span class="ln">Jag slås av ljuset från din frånvaro</span><span class="ln">Och ljudet av piano</span></div>
+      <div class="sv lang-en"><span class="ln">I cannot separate myself from what I remember</span><span class="ln">Everything is blurred except the warmth of your cheek</span><span class="ln">Spring came and went</span><span class="ln">Sun water wind</span><span class="ln">I am struck by the light of your absence</span><span class="ln">And the sound of piano</span></div>
+    </div>
+
+    <div class="ph bleed rv">
+      <div class="imgbox"><span class="idx">ACT III</span><img src="img/final/act3_portal_03.jpg" alt="The red cathedral seen through the pearl colonnade" onclick="openLB(this)" data-speed="0.05"></div>
+      <div class="cap">Looking back at the heart — the cathedral in the clouds, in-world</div>
+    </div>
+
+    <div class="duo2 rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT III</span><img src="img/final/act3_portal_02.jpg" alt="The butterfly garden above the clouds" onclick="openLB(this)"></div>
+        <div class="cap">The garden above the clouds</div>
+      </div>
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT III</span><img src="img/blindt/blindt_05.jpg" alt="Walking through the silver portal — Festsalen" onclick="openLB(this)"></div>
+        <div class="cap">Through the portal · Photo: Blindt</div>
+      </div>
+    </div>
+
+    <div class="poem rv">
+      <div class="sv lang-sv"><span class="ln">Jag kom och jag såg vad jag ville se</span><span class="ln">Allt som blev, som solen rörde</span><span class="ln">Slut dina ögon för att se, skönhet går i dina steg</span><span class="ln">Och</span><span class="ln">Om ljus finns i ditt hjärta kommer du att hitta hem</span><span class="ln">För att, en dag tar det bara slut</span></div>
+      <div class="sv lang-en"><span class="ln">I came and I saw what I wanted to see</span><span class="ln">All that came to be, all the sun touched</span><span class="ln">Close your eyes and you'll see, beauty walks in your steps</span><span class="ln">And if there is light in your heart, you will find your way home</span><span class="ln">Because, one day it all ends</span></div>
+    </div>
+
+    <div class="duo2 rv">
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT III</span><img src="img/blindt/blindt_06.jpg" alt="Reaching into the virtual world" onclick="openLB(this)"></div>
+        <div class="cap">POET — reaching into the world · Photo: Blindt</div>
+      </div>
+      <div class="ph">
+        <div class="imgbox"><span class="idx">ACT III</span><img src="img/blindt/paradisesky.jpg" alt="The paradise — Festsalen" onclick="openLB(this)"></div>
+        <div class="cap">The paradise — physical installation, Festsalen · Photo: Paula Strunden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FINALE ═══════════ -->
+<section id="finale">
+  <div class="finale-state">
+    <div class="sv rv lang-sv">Slut?<br>Det känns som slutet<br>Men du ser en solnedgång,<br>som i själva verket är <em>en gryning.</em></div>
+    <div class="sv rv lang-en">Ends?<br>It feels like the end<br>But you see a sunset,<br>that in reality is <em>a dawn.</em></div>
+  </div>
+  <div class="ph bleed rv" style="margin:0;">
+    <div class="imgbox"><img src="img/final/act3_portal_04.jpg" alt="Act III — into the light" onclick="openLB(this)" data-speed="0.04"></div>
+  </div>
+</section>
+
+<!-- ═══════════ OUTRO — REFLECTIONS ═══════════ -->
+<section id="outro">
+  <div class="wrap">
+    <!-- WALKTHROUGH STRIP — 3-4 small images of people walking through go here (Paula to provide) -->
+
+    <div class="refl-wall rv">
+      <div class="quote-block lead">
+        <blockquote class="lang-en">«Magical. Inspiring. Touching / <em>I cried</em>. Powerful. Important.»</blockquote>
+        <blockquote class="lang-sv">«Magiskt. Inspirerande. Berörande / <em>jag grät</em>. Kraftfullt. Viktigt.»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+
+      <div class="quote-block note">
+        <blockquote class="lang-en">«A new way of processing all the <em>current pain in the world</em> / inspiring, hopeful, but also sad, because the world is sad right now.»</blockquote>
+        <blockquote class="lang-sv">«Ett nytt sätt att bearbeta all den <em>smärta som finns i världen</em> / inspirerande, hoppfullt, men också sorgligt, för världen är sorglig just nu.»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+
+      <div class="ph">
+        <div class="imgbox"><span class="idx">REFLECTION</span><img src="img/blindt/reflection_poet.jpg" alt="A visitor in the POET vest writing a reflection card in red light" onclick="openLB(this)"></div>
+        <div class="cap lang-en">Writing a reflection · Photo: Blindt</div>
+        <div class="cap lang-sv">Att skriva en reflektion · Foto: Blindt</div>
+      </div>
+
+      <div class="quote-block note">
+        <blockquote class="lang-en">«It was a good feeling that the body disappeared and only the hands were visible / the <em>feeling of weightlessness</em>. It felt as if I floated towards Silvana's mother, into her body, into her memory of childhood.»</blockquote>
+        <blockquote class="lang-sv">«Det var en bra känsla att kroppen försvann och bara händerna var synliga / <em>känslan av tyngdlöshet</em>. Det kändes som att jag svävade mot Silvanas mamma, in i hennes kropp, in i hennes minne av barndomen.»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+
+      <div class="quote-block note">
+        <blockquote class="lang-en">«What a beautiful world! VR is a medium that shifts our <em>perception</em> / the immersion takes art to another level, bringing it extremely close to the observer.»</blockquote>
+        <blockquote class="lang-sv">«Vilken vacker värld! VR är ett medium som förskjuter vår <em>perception</em> / inlevelsen lyfter konsten till en annan nivå och för den extremt nära betraktaren.»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+
+      <div class="quote-block note">
+        <blockquote class="lang-en">«An absolutely incredible experience. It started quite slowly and just kept getting better and better / <em>the ending was insane!</em>»</blockquote>
+        <blockquote class="lang-sv">«En helt otrolig upplevelse. Den började ganska långsamt och bara blev bättre och bättre / <em>avslutningen var sjuk!</em>»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+
+      <div class="ph">
+        <div class="imgbox"><span class="idx">REFLECTION</span><img src="img/blindt/reflection_standing.jpg" alt="A visitor in the POET vest inside the experience" onclick="openLB(this)"></div>
+        <div class="cap lang-en">Inside the experience — the POET vest · Photo: Paula Strunden</div>
+        <div class="cap lang-sv">Inuti upplevelsen — POET-västen · Foto: Paula Strunden</div>
+      </div>
+
+      <div class="quote-block lead">
+        <blockquote class="lang-en">«A fantastic, impressive experience / getting to <em>experience another world</em>.»</blockquote>
+        <blockquote class="lang-sv">«En fantastisk, imponerande upplevelse / att få <em>uppleva en annan värld</em>.»</blockquote>
+        <div class="by lang-en">Visitor reflection</div>
+        <div class="by lang-sv">Besökarreflektion</div>
+      </div>
+    </div>
+
+    <div class="quotes rv" style="margin-top:10vh;">
       <div>
-        <p>What happens when the noise stops? When the screens go dark? When the flood of information that defines our waking life is stripped away and you are left with nothing but a body?</p>
-        <p>ÅTERFÖDELSEN is a journey inward. You enter through the mouth &mdash; overwhelmed, bombarded, drowning in the chaos of the world as it streams toward you. You smash through it. And in the wreckage you find a beating heart.</p>
-        <p>You step into that heart. You wander around it. Memory fragments, poetry snippets, past, future, desire, longing, nostalgia. Somewhere across, a stranger inside the same heart...</p>
-        <p>15 minutes. Three acts. One body. The question is not what you see &mdash; but what you feel when you come back out.</p>
-        <p>ÅTERFÖDELSEN is a room-scale XR installation combining virtual reality, spatial audio, haptic technology, and physical environments. The experience is an espresso shot of life in three acts (BIRTH / LOVE / DEATH), unfolding across two connected locations &mdash; MUNCH Museum in Oslo and ITU in Copenhagen &mdash; where visitors meet as livies and ghosties inside a shared virtual heart.</p>
-        <p>More info at: <a href="https://www.munch.no/en/whats-on/aterfodelsenrebirth2/" target="_blank" rel="noopener" style="color:#c00;text-decoration:underline;text-underline-offset:4px;">munch.no</a></p>
+        <div class="quote-block rv">
+          <blockquote>«An espresso shot of a brutal and beautiful <em>life and death</em>.»</blockquote>
+          <div class="by">Silvana Imam</div>
+        </div>
+        <div class="quote-block rv d1">
+          <blockquote>«Bringing our physical and virtual worlds closer together — using <em>heat, wind and tactile materials</em>.»</blockquote>
+          <div class="by">Paula Strunden</div>
+        </div>
       </div>
-      <div>
-        <div class="credits-block" style="margin-top:0;padding-top:0;border-top:none;">
-          <p><span style="color:#c00;font-weight:900;">Silvana Imam</span> Rapper, Poet, Actor and Multidisciplinary Artist. Lead artist on poetry, sound and music.</p>
-          <p><span style="color:#c00;font-weight:900;">Paula Strunden</span> XR Artist and Architectural Designer. Lead artist on immersive experience, spatial narrative and visual world.</p>
+      <div class="ph rv d2" style="margin:0;">
+        <div class="imgbox"><img src="img/blindt/poster.jpg" alt="ÅTERFÖDELSEN / REBIRTH — official poster" onclick="openLB(this)"></div>
+        <div class="cap">Official poster — ÅTERFÖDELSEN / REBIRTH</div>
+      </div>
+    </div>
+
+    <div class="outro-credit rv"><span class="oc-label">Impressum:</span> Poetry by Silvana Imam &nbsp;·&nbsp; Visuals by Paula Strunden &nbsp;·&nbsp; Photographs by Blindt &amp; Adrian Kirkerud &nbsp;·&nbsp; Teaser video by Christian A. Heredia &nbsp;·&nbsp; Website design © Paula Strunden, 2026</div>
+  </div>
+</section>
+
+<!-- ═══════════ CREDITS OVERLAY ═══════════ -->
+<div id="credits-overlay">
+  <div class="co-visual">
+    <img src="img/blindt/kirkerud_artists.jpg" alt="Silvana Imam and Paula Strunden">
+    <div class="co-vcap">Paula Strunden ✕ Silvana Imam · Photo: Adrian Kirkerud</div>
+  </div>
+  <div class="co-panel">
+    <div class="co-bar">
+      <div class="lang">
+        <a data-l="sv" class="active" onclick="setLang('sv')">SV</a>
+        <span class="sep">/</span>
+        <a data-l="en" onclick="setLang('en')">EN</a>
+      </div>
+      <button class="co-close" onclick="closeCredits()" aria-label="Close">&times;</button>
+    </div>
+    <div class="co-inner">
+      <p class="co-lede"><b>ÅTERFÖDELSEN <span class="sl">/</span> REBIRTH</b> is a room-scale XR installation by Silvana Imam and Paula Strunden, commissioned by MUNCH in 2025 and funded by XTREME (EU Horizon Europe). Bringing together virtual reality, spatial sound and a physical set of pipes, ramps, wind and warmth, it pulls the audience into Silvana Imam's poetry. Wearing an Apple Vision Pro, each visitor is led through MUNCH's Festsalen by a guide from the MUNCH Youth Collective, experiencing an espresso shot of life: three acts, fifteen minutes, one body.</p>
+      <div class="co-list">
+        <div class="co-col">
+          <div><div class="who">Silvana Imam</div><div class="what">Poetry, sound and music</div></div>
+          <div><div class="who">Paula Strunden</div><div class="what">XR, spatial narrative and visual world</div></div>
+          <div><div class="who">Nisj</div><div class="what">Conceptual sound, composer</div></div>
+          <div><div class="who">Marijn Cinjee</div><div class="what">Spatial audio designer, 4DSOUND</div></div>
+          <div><div class="who">Casimir Geelhoed</div><div class="what">Developer and spatial audio, 4DSOUND</div></div>
+          <div><div class="who">Kostas Iliadis</div><div class="what">System architecture, BOLT Athens</div></div>
         </div>
-        <div class="credits-block">
-          <p><span style="color:#c00;font-weight:900;">Nisj</span> Conceptual Sound, Composer</p>
-          <p><span style="color:#c00;font-weight:900;">Marijn Cinjee</span> Spatial Audio Designer, 4DSOUND</p>
-          <p><span style="color:#c00;font-weight:900;">Casimir Geelhoed</span> Developer & Spatial Audio Designer, 4DSOUND</p>
-          <p><span style="color:#c00;font-weight:900;">Christian Sivertsen</span> Technical Coordinator & Creative Technologist, ITU Copenhagen</p>
-          <p><span style="color:#c00;font-weight:900;">Kostas Iliadis</span> System Architecture, BOLT Virtual Athens</p>
-          <p><span style="color:#c00;font-weight:900;">Julie L. Parisi</span> Creative Producer & Audience Experience, MUNCH</p>
-          <p><span style="color:#c00;font-weight:900;">Awo Abdulqadir</span> Community Engagement Lead, MUNCH Youth Collective</p>
-          <p><span style="color:#c00;font-weight:900;">MUNCH Youth Collective &laquo;UTKAST/DRAFT&raquo;</span> Guides & Youth Expert Panel</p>
-          <p><span style="color:#c00;font-weight:900;">Birgitte Aga</span> Head of Research and Innovation, MUNCH, Project Owner</p>
+        <div class="co-col">
+          <div><div class="who">Julie L. Parisi</div><div class="what">Creative producer, MUNCH</div></div>
+          <div><div class="who">Awo Abdulqadir</div><div class="what">Community engagement, MUNCH</div></div>
+          <div><div class="who">Christian Sivertsen</div><div class="what">Technical coordinator, ITU Copenhagen</div></div>
+          <div><div class="who">Birgitte Aga</div><div class="what">Research and innovation, MUNCH</div></div>
+          <div><div class="who">UTKAST / DRAFT</div><div class="what">MUNCH Youth Collective, guides</div></div>
+          <div><div class="who">XTREME R&D Team</div><div class="what">KHORA · BOLT · ITU · University of Nottingham</div></div>
         </div>
-        <div class="credits-block">
-          <p><span style="color:#c00;font-weight:900;">XTREME Team</span> KHORA Copenhagen, BOLT Virtual Athens, IT University of Copenhagen, University of Nottingham</p>
+      </div>
+      <div class="co-links">
+        <a href="https://www.munch.no/en/whats-on-arkiv/arrangement/aterfodelsenrebirth2/" target="_blank" rel="noopener">Tickets ↗</a>
+        <a href="https://www.munch.no/en/about/research-and-innovation/innovation/xtreme/xtreme--aterfodelsenrebirth/" target="_blank" rel="noopener">Article ↗</a>
+        <a href="https://www.mynewsdesk.com/munchmuseet/pressreleases/aaterfoedelsen-slash-rebirth-a-unique-xr-experience-at-munch-3448931" target="_blank" rel="noopener">Press release ↗</a>
+        <a href="https://xtremeitu.dk/use-case/munch" target="_blank" rel="noopener">XTREME project ↗</a>
+        <a href="img/visual_pack/Aterfodelsen_MUNCH2026_visual_pack.zip" download>Visual pack ↓</a>
+      </div>
+      <div class="co-strip">
+        <img class="lg lg-munch" src="img/logos/munch_white.png" alt="MUNCH">
+        <div class="co-eu-group">
+          <img class="lg lg-eu" src="img/logos/eu_flag_white.png" alt="European Union">
+          <p class="co-eu">XTREME — Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006.</p>
         </div>
-        <div class="about-disclaimer">
-          <p class="eu-tag">XTREME &mdash; Extended Reality Environment for Immersive Experience of Art and Culture is an EU-funded project as part of Horizon Europe. Grant agreement No. 101136006.</p>
-          <p class="eu-tag mobile-only" style="margin-top:20px;padding-top:14px;border-top:1px solid #1a1a1a;">&copy; Website Design & Concept: Paula Strunden, 2026</p>
-        </div>
+        <img class="lg lg-xtreme" src="img/logos/xtreme_white.png" alt="XTREME">
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ═══ VISUAL PACK OVERLAY ═══ -->
-  <div class="about-overlay" id="vpack">
-    <span class="about-close" onclick="document.getElementById('vpack').classList.remove('active')">&times;</span>
-    <h2><a href="img/visual_pack/Aterfodelsen_MUNCH2026_visual_pack.zip" download style="color:#c00;text-decoration:underline;text-underline-offset:6px;">DOWNLOAD</a> VISUAL PACK</h2>
-    <div class="vpack-grid">
-      <div class="vpack-item"><img src="img/visual_pack/mouth_01.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_01.jpg" download="Aterfodelsen_MUNCH2026_01.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_02.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_02.jpg" download="Aterfodelsen_MUNCH2026_02.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_03.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_03.jpg" download="Aterfodelsen_MUNCH2026_03.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_04.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_04.jpg" download="Aterfodelsen_MUNCH2026_04.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_05.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_05.jpg" download="Aterfodelsen_MUNCH2026_05.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_06.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_06.jpg" download="Aterfodelsen_MUNCH2026_06.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_07.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_07.jpg" download="Aterfodelsen_MUNCH2026_07.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_08.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_08.jpg" download="Aterfodelsen_MUNCH2026_08.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_09.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_09.jpg" download="Aterfodelsen_MUNCH2026_09.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_10.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_10.jpg" download="Aterfodelsen_MUNCH2026_10.jpg"></a></div>
-      <div class="vpack-item"><img src="img/visual_pack/mouth_12.jpg"><a class="vpack-dl" href="img/visual_pack/mouth_12.jpg" download="Aterfodelsen_MUNCH2026_11.jpg"></a></div>
-    </div>
-  </div>
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div id="lb">
+  <div class="lbx" onclick="document.getElementById('lb').classList.remove('on')">&times;</div>
+  <div class="lbn prev" onclick="lbNav(-1)">&lsaquo;</div>
+  <img id="lbimg" src="" alt="">
+  <div class="lbn next" onclick="lbNav(1)">&rsaquo;</div>
+</div>
 
-  <!-- ═══ LIGHTBOX ═══ -->
-  <div class="lightbox" id="lb">
-    <div class="lb-close" onclick="document.getElementById('lb').classList.remove('active')">&times;</div>
-    <div class="lb-prev" onclick="lbNav(-1)">&lsaquo;</div>
-    <img id="lbImg" src="">
-    <div class="lb-next" onclick="lbNav(1)">&rsaquo;</div>
-  </div>
+<script>
+/* ═══ LOADER ═══ */
+(function(){
+  const l=document.getElementById('ldline'),ld=document.getElementById('loader');
+  let p=0;const t=setInterval(()=>{
+    p+=Math.random()*16+6;
+    if(p>=100){p=100;clearInterval(t);setTimeout(()=>ld.classList.add('gone'),300);}
+    l.style.width=p+'%';
+  },90);
+})();
 
-  <script>
-    let lbImages = [];
-    let lbIndex = 0;
+/* ═══ CURSOR ═══ */
+const cdot=document.getElementById('cdot'),cring=document.getElementById('cring');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cdot.style.left=mx+'px';cdot.style.top=my+'px';});
+document.querySelectorAll('a,button,img[onclick]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cring.classList.add('hot'));
+  el.addEventListener('mouseleave',()=>cring.classList.remove('hot'));
+});
 
-    function openLB(el) {
-      // Collect all images in the same column/act
-      const column = el.closest('.column') || el.closest('.act-images') || document.body;
-      lbImages = Array.from(column.querySelectorAll('img[onclick]')).map(img => img.src);
-      lbIndex = lbImages.indexOf(el.src);
-      if (lbIndex === -1) { lbImages = [el.src]; lbIndex = 0; }
-      document.getElementById('lbImg').src = lbImages[lbIndex];
-      document.getElementById('lb').classList.add('active');
+/* ═══ COLOUR JOURNEY — black → red → yellow-white ═══ */
+const stops=[
+  [0.00,[5,5,5]],
+  [0.22,[8,2,4]],
+  [0.38,[38,0,10]],
+  [0.52,[88,0,20]],
+  [0.62,[142,32,18]],
+  [0.70,[224,186,120]],
+  [0.78,[249,244,228]],
+  [1.00,[250,247,238]]
+];
+function lerp(a,b,t){return a+(b-a)*t;}
+function bgAt(p){
+  for(let i=0;i<stops.length-1;i++){
+    const [p0,c0]=stops[i],[p1,c1]=stops[i+1];
+    if(p>=p0&&p<=p1){
+      const t=(p-p0)/(p1-p0);
+      return [Math.round(lerp(c0[0],c1[0],t)),Math.round(lerp(c0[1],c1[1],t)),Math.round(lerp(c0[2],c1[2],t))];
     }
+  }
+  return stops[stops.length-1][1];
+}
 
-    function lbNav(dir) {
-      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-      document.getElementById('lbImg').src = lbImages[lbIndex];
-    }
-    const actAudio = {};
-    function togglePlay(btn) {
-      const src = btn.dataset.audio;
-      if (!src) return;
-      // Stop any other playing audio
-      Object.entries(actAudio).forEach(([key, a]) => {
-        if (key !== src && !a.paused) {
-          a.pause();
-          const otherBtn = document.querySelector(`.play-btn[data-audio="${key}"]`);
-          if (otherBtn) otherBtn.classList.remove('playing');
-        }
-      });
-      if (!actAudio[src]) {
-        actAudio[src] = new Audio(src);
-        actAudio[src].addEventListener('ended', () => btn.classList.remove('playing'));
-      }
-      const audio = actAudio[src];
-      if (audio.paused) {
-        audio.play();
-        btn.classList.add('playing');
-      } else {
-        audio.pause();
-        btn.classList.remove('playing');
-      }
-    }
-    function setLang(lang) {
-      document.body.classList.remove('lang-sv', 'lang-en');
-      document.body.classList.add('lang-' + lang);
-      document.querySelectorAll('.lang-toggle a').forEach(a => {
-        a.classList.toggle('active', a.dataset.lang === lang);
-      });
-    }
-    // Number every image per act (I.1, I.2, II.1, ...)
-    document.querySelectorAll('.column').forEach((col, idx) => {
-      const label = ['I', 'II', 'III'][idx];
-      let n = 0;
-      col.querySelectorAll('.act-images img').forEach(img => {
-        n++;
-        const wrap = document.createElement('span');
-        wrap.className = 'img-wrap';
-        img.parentNode.insertBefore(wrap, img);
-        wrap.appendChild(img);
-        const badge = document.createElement('div');
-        badge.className = 'img-num-badge';
-        badge.textContent = label + '.' + n;
-        wrap.appendChild(badge);
-      });
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft' && document.getElementById('lb').classList.contains('active')) { lbNav(-1); return; }
-      if (e.key === 'ArrowRight' && document.getElementById('lb').classList.contains('active')) { lbNav(1); return; }
-      if (e.key === 'Escape') {
-        document.getElementById('lb').classList.remove('active');
-        document.getElementById('about').classList.remove('active');
-        document.getElementById('vpack').classList.remove('active');
-      }
-    });
-    // Mobile: tap act headers to expand/collapse
-    document.querySelectorAll('.act-header').forEach(header => {
-      header.addEventListener('click', (e) => {
-        if (window.innerWidth > 900) return;
-        if (e.target.closest('.play-btn')) return;
-        const col = header.closest('.column');
-        const wasOpen = col.classList.contains('open');
-        document.querySelectorAll('.column').forEach(c => c.classList.remove('open'));
-        if (!wasOpen) {
-          col.classList.add('open');
-          // Compute scroll position after layout settles so header lands at top
-          requestAnimationFrame(() => {
-            const headerTop = header.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo(0, headerTop - 10);
-          });
-        }
-      });
-    });
+/* ═══ ENGINE ═══ */
+const spds=[...document.querySelectorAll('[data-speed]')];
+const mds=[...document.querySelectorAll('[data-mdepth]')];
+const prog=document.getElementById('progress');
+const scrollCue=document.querySelector('.scroll-cue');
+const heroCred=document.querySelector('.hero-cred');
+function frame(){
+  if(scrollCue)scrollCue.classList.toggle('gone',scrollY>30);
+  if(heroCred)heroCred.classList.toggle('show',scrollY>30);
+  const vh=innerHeight;
+  const total=document.documentElement.scrollHeight-vh;
+  const p=Math.min(1,Math.max(0,scrollY/total));
 
-    // Show copyright only after scrolling past hero
-    window.addEventListener('scroll', () => {
-      const credit = document.querySelector('.bottom-credit');
-      if (window.scrollY > window.innerHeight * 0.5) {
-        credit.classList.add('visible');
-      } else {
-        credit.classList.remove('visible');
-      }
+  const c=bgAt(p);
+  document.body.style.background='rgb('+c[0]+','+c[1]+','+c[2]+')';
+  const lum=(c[0]*0.299+c[1]*0.587+c[2]*0.114);
+  document.body.classList.toggle('light',lum>140);
+
+  prog.style.width=(p*100)+'%';
+
+  /* timeline track fill */
+  const tf=document.getElementById('trackFill');
+  if(tf){const trackLen=vh*(1-0.26);tf.style.height=(p*trackLen)+'px';}
+
+  spds.forEach(el=>{
+    const r=el.getBoundingClientRect();
+    const mid=r.top+r.height/2-vh/2;
+    el.style.transform='translate3d(0,'+(mid*parseFloat(el.dataset.speed)*-1).toFixed(1)+'px,0)';
+  });
+
+  const nx=mx/innerWidth-0.5,ny=my/innerHeight-0.5;
+  mds.forEach(el=>{const d=parseFloat(el.dataset.mdepth);el.style.translate=(-nx*d)+'px '+(-ny*d)+'px';});
+
+  rx+=(mx-rx)*0.16;ry+=(my-ry)*0.16;
+  cring.style.left=rx+'px';cring.style.top=ry+'px';
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ═══ REVEALS ═══ */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ═══ VIDEO: play only when visible (saves data/CPU/battery) ═══ */
+const vio=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    const v=e.target;
+    if(e.isIntersecting){if(v.paused)v.play().catch(()=>{});}
+    else if(!v.paused)v.pause();
+  });
+},{threshold:0.1});
+document.querySelectorAll('video').forEach(v=>vio.observe(v));
+
+/* ═══ NAV SPY ═══ */
+const spyOrder=['hero','act1','act2','act3','outro'];
+const navAll=[...document.querySelectorAll('.topnav a')];
+const mnavAll=[...document.querySelectorAll('.mobilenav a')];
+const spy=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=spyOrder.indexOf(e.target.id);
+      [navAll,mnavAll].forEach(set=>set.forEach((a,i)=>{
+        a.classList.toggle('on',i===idx);
+        a.classList.toggle('done',i<idx);
+      }));
+    }
+  });
+},{threshold:0.12});
+spyOrder.forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el);});
+
+/* ═══ AUDIO PER ACT ═══ */
+const actAudio={};
+document.querySelectorAll('.play').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const src=btn.dataset.audio;
+    Object.entries(actAudio).forEach(([k,a])=>{
+      if(k!==src&&!a.paused){a.pause();
+        const b=document.querySelector('.play[data-audio="'+k+'"]');if(b)b.classList.remove('playing');}
     });
-  </script>
+    if(!actAudio[src]){actAudio[src]=new Audio(src);actAudio[src].addEventListener('ended',()=>btn.classList.remove('playing'));}
+    const a=actAudio[src];
+    if(a.paused){a.play();btn.classList.add('playing');}
+    else{a.pause();btn.classList.remove('playing');}
+  });
+});
+
+/* ═══ LANGUAGE ═══ */
+function setLang(l){
+  document.body.classList.remove('lang-sv','lang-en');
+  document.body.classList.add('lang-'+l);
+  document.querySelectorAll('.lang a').forEach(a=>a.classList.toggle('active',a.dataset.l===l));
+}
+
+/* ═══ CREDITS OVERLAY ═══ */
+function openCredits(){document.getElementById('credits-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeCredits(){document.getElementById('credits-overlay').classList.remove('open');document.body.style.overflow='';}
+
+/* ═══ LIGHTBOX ═══ */
+let lbList=[],lbIdx=0;
+function openLB(el){
+  lbList=[...document.querySelectorAll('img[onclick]')].map(i=>i.src);
+  lbIdx=lbList.indexOf(el.src);if(lbIdx<0)lbIdx=0;
+  document.getElementById('lbimg').src=lbList[lbIdx];
+  document.getElementById('lb').classList.add('on');
+}
+function lbNav(d){
+  lbIdx=(lbIdx+d+lbList.length)%lbList.length;
+  document.getElementById('lbimg').src=lbList[lbIdx];
+}
+addEventListener('keydown',e=>{
+  const lb=document.getElementById('lb');
+  if(e.key==='Escape'){lb.classList.remove('on');closeCredits();}
+  if(lb.classList.contains('on')){
+    if(e.key==='ArrowLeft')lbNav(-1);
+    if(e.key==='ArrowRight')lbNav(1);
+  }
+});
+</script>
 </body>
 </html>
