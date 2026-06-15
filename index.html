@@ -376,14 +376,15 @@ section{position:relative;}
 .co-eu-group{display:flex;align-items:center;gap:16px;}
 .co-eu{font-family:var(--helv);font-size:10px;line-height:1.5;color:rgba(255,255,255,.62);max-width:42ch;letter-spacing:0;}
 @media (max-width:860px){
-  /* mobile: whole overlay scrolls as one — the photo (42vh) scrolls up and off, only the SV/EN + close bar stays sticky-pinned at the top */
-  #credits-overlay{display:block;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-  .co-visual{height:42vh;}
+  /* mobile: SV/EN + close bar pinned at the very top; the photo sits directly beneath it, scrolls up and off, then the text reveals */
+  #credits-overlay{display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .co-panel{display:contents;} /* promote .co-bar + .co-inner to flex children so we can order them around the photo */
+  .co-bar{order:1;position:sticky;top:0;padding:15px 4vw;}
+  .co-visual{order:2;height:54vh;}
+  .co-inner{order:3;}
   .co-visual img{object-position:center 70%;}
   .co-visual::after{display:none;}
-  .co-vcap{bottom:6px;}
-  .co-panel{overflow:visible;}
-  .co-bar{padding:15px 4vw;}
+  .co-vcap{bottom:6px;opacity:1;text-shadow:0 1px 10px rgba(0,0,0,.85);}
   .co-bar::before{inset:0;background:rgba(8,8,8,.5);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 100%);mask-image:linear-gradient(180deg,#000 0%,#000 100%);}
   .co-strip{flex-wrap:wrap;column-gap:7vw;row-gap:16px;}
   .lg-munch{margin-right:0;}
@@ -418,11 +419,11 @@ section{position:relative;}
   <a href="#outro" data-spy="outro"><span class="dot"></span><span class="lbl"><span class="step">End</span><span class="name">Outro</span></span></a>
 </nav>
 <nav class="mobilenav">
-  <a href="#hero" data-spy="hero"><span class="mn-step">Intro</span></a>
-  <a href="#act1" data-spy="act1"><span class="mn-step">Birth</span><span class="mn-name">Act I</span></a>
-  <a href="#act2" data-spy="act2"><span class="mn-step">Love</span><span class="mn-name">Act II</span></a>
-  <a href="#act3" data-spy="act3"><span class="mn-step">Death</span><span class="mn-name">Act III</span></a>
-  <a href="#outro" data-spy="outro"><span class="mn-step">Outro</span></a>
+  <a href="#hero" data-spy="hero"><span class="mn-name">Start</span><span class="mn-step">Intro</span></a>
+  <a href="#act1" data-spy="act1"><span class="mn-name">Act I</span><span class="mn-step">Birth</span></a>
+  <a href="#act2" data-spy="act2"><span class="mn-name">Act II</span><span class="mn-step">Love</span></a>
+  <a href="#act3" data-spy="act3"><span class="mn-name">Act III</span><span class="mn-step">Death</span></a>
+  <a href="#outro" data-spy="outro"><span class="mn-name">End</span><span class="mn-step">Outro</span></a>
 </nav>
 <div class="topbar">
   <div class="lang">
@@ -859,10 +860,10 @@ section{position:relative;}
         </div>
       </div>
       <div class="co-links">
-        <a href="https://www.munch.no/en/whats-on-arkiv/arrangement/aterfodelsenrebirth2/" target="_blank" rel="noopener">Tickets ↗</a>
-        <a href="https://www.munch.no/en/about/research-and-innovation/innovation/xtreme/xtreme--aterfodelsenrebirth/" target="_blank" rel="noopener">Article ↗</a>
-        <a href="https://www.mynewsdesk.com/munchmuseet/pressreleases/aaterfoedelsen-slash-rebirth-a-unique-xr-experience-at-munch-3448931" target="_blank" rel="noopener">Press release ↗</a>
-        <a href="https://xtremeitu.dk/use-case/munch" target="_blank" rel="noopener">XTREME project ↗</a>
+        <a href="https://www.munch.no/en/whats-on-arkiv/arrangement/aterfodelsenrebirth2/" target="_blank" rel="noopener">Tickets ↗&#xFE0E;</a>
+        <a href="https://www.munch.no/en/about/research-and-innovation/innovation/xtreme/xtreme--aterfodelsenrebirth/" target="_blank" rel="noopener">Article ↗&#xFE0E;</a>
+        <a href="https://www.mynewsdesk.com/munchmuseet/pressreleases/aaterfoedelsen-slash-rebirth-a-unique-xr-experience-at-munch-3448931" target="_blank" rel="noopener">Press release ↗&#xFE0E;</a>
+        <a href="https://xtremeitu.dk/use-case/munch" target="_blank" rel="noopener">XTREME project ↗&#xFE0E;</a>
         <a href="img/visual_pack/Aterfodelsen_MUNCH2026_visual_pack.zip" download>Visual pack ↓</a>
       </div>
       <div class="co-strip">
