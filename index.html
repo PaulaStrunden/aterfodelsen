@@ -934,10 +934,12 @@ const mds=[...document.querySelectorAll('[data-mdepth]')];
 const prog=document.getElementById('progress');
 const scrollCue=document.querySelector('.scroll-cue');
 const heroCred=document.querySelector('.hero-cred');
+const mobnav=document.querySelector('.mobilenav');
 function frame(){
   if(scrollCue)scrollCue.classList.toggle('gone',scrollY>30);
   if(heroCred)heroCred.classList.toggle('show',scrollY>30);
   const vh=innerHeight;
+  if(mobnav)mobnav.classList.toggle('show',scrollY>vh*0.5);
   const total=document.documentElement.scrollHeight-vh;
   const p=Math.min(1,Math.max(0,scrollY/total));
 
