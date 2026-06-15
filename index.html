@@ -143,6 +143,7 @@ section{position:relative;}
 .scroll-cue.gone{opacity:0;}
 .scroll-cue i{display:block;width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--red));animation:cueline 1.8s ease-in-out infinite;}
 @keyframes cueline{0%{transform:scaleX(0);transform-origin:left}60%{transform:scaleX(1);transform-origin:left}61%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+@media (max-width:880px){.scroll-cue{display:none;}}
 
 /* ═══════════ INTRO ═══════════ */
 #intro{padding:24vh 0 6vh;}
