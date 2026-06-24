@@ -255,6 +255,7 @@ section{position:relative;}
 /* press / critic citation — full width, across both columns */
 #outro .press-cite{max-width:none;}
 #outro .press-cite blockquote{text-transform:none;font-weight:500;letter-spacing:0;line-height:1.45;font-size:clamp(17px,1.7vw,27px);color:#16130a;}
+#outro .press-cite blockquote em{font-style:normal;color:var(--accent);}
 #outro .press-cite .by{margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#16130a;}
 #outro .press-cite .by a{color:var(--accent);text-decoration:none;}
 #outro .press-cite .by a:hover{text-decoration:underline;}
@@ -273,7 +274,7 @@ section{position:relative;}
 .outro-end a{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
 .outro-end a:hover{color:var(--accent);}
 .credrule{height:1px;background:var(--line);max-width:1460px;margin:0 auto 9vh;}
-.outro-credit{margin-top:13vh;padding-top:5vh;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);line-height:1.85;}
+.outro-credit{margin-top:13vh;padding-top:5vh;font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);line-height:1.85;}
 .outro-credit .oc-label{color:var(--accent);letter-spacing:3px;margin-right:8px;}
 .cred-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:7vw;max-width:1200px;}
 .cred-cols .about p{font-size:clamp(13.5px,1.2vw,16px);line-height:2;color:var(--muted);margin-bottom:20px;transition:color .6s;}
@@ -384,7 +385,7 @@ section{position:relative;}
 .lg-munch{height:40px;margin-left:2.4vw;}
 .lg-eu{height:52px;}
 .lg-xtreme{height:58px;}
-.co-eu-group{display:flex;align-items:center;gap:16px;}
+.co-eu-group{display:flex;align-items:center;gap:16px;margin-left:1.6vw;}
 .co-eu{font-family:var(--helv);font-size:10px;line-height:1.5;color:rgba(255,255,255,.62);max-width:42ch;letter-spacing:0;}
 @media (max-width:860px){
   /* mobile: SV/EN + close bar pinned at the very top; the photo sits directly beneath it, scrolls up and off, then the text reveals */
@@ -818,8 +819,10 @@ section{position:relative;}
 
     <!-- press / critic citation -->
     <div class="press-cite rv" style="margin-top:10vh;">
-      <blockquote>«And yet it is not the research project or the technology that lingers most strongly afterwards, but the physical experience of the work. Paradoxically, it is through artificial reality that I become most aware of the real body. I feel the wind against my skin, hear the rhythm of my own steps, and stretch out my hands to touch. At a time when digital media are often accused of fragmenting our attention, the installation uses that very same technology to demand full presence. The work doesn't ask me to disappear into another world, but to meet it through the body I already have.»</blockquote>
-      <div class="by">Weronika Zurawska &nbsp;·&nbsp; <a href="https://paragone.no/kunst/2026/6/6/nr-betraktning-ikke-lenger-er-nok" target="_blank" rel="noopener">Paragone, 2026 ↗&#xFE0E;</a></div>
+      <blockquote class="lang-en">«And yet it is not the research project or the technology that lingers most strongly afterwards, but the <em>physical experience of the work</em>. Paradoxically, it is through artificial reality that I become most aware of the real body. I feel the wind against my skin, hear the rhythm of my own steps, and stretch out my hands to touch. At a time when digital media are often accused of fragmenting our attention, the installation uses that very same technology to <em>demand full presence</em>. The work doesn't ask me to disappear into another world, but to meet it through the body I already have.»</blockquote>
+      <blockquote class="lang-sv">«Likevel er det ikke forskningsprosjektet eller teknologien som blir sittende sterkest igjen etterpå, men den <em>fysiske erfaringen av verket</em>. Paradoksalt nok er det gjennom den kunstige virkeligheten at jeg blir mest oppmerksom på den virkelige kroppen. Jeg kjenner vinden mot huden, hører rytmen av egne skritt og strekker ut hendene for å berøre. I en tid der digitale medier ofte anklages for å fragmentere oppmerksomheten vår, benytter installasjonen den samme teknologien til å <em>kreve full tilstedeværelse</em>. Verket ber meg ikke om å forsvinne inn i en annen verden, men om å møte den gjennom kroppen jeg allerede har.»</blockquote>
+      <div class="by lang-en">Weronika Zurawska &nbsp;·&nbsp; <a href="https://paragone.no/kunst/2026/6/6/nr-betraktning-ikke-lenger-er-nok" target="_blank" rel="noopener">Paragone, 2026 ↗&#xFE0E;</a></div>
+      <div class="by lang-sv">Weronika Zurawska (originalartikel på norska) &nbsp;·&nbsp; <a href="https://paragone.no/kunst/2026/6/6/nr-betraktning-ikke-lenger-er-nok" target="_blank" rel="noopener">Paragone, 2026 ↗&#xFE0E;</a></div>
     </div>
 
     <div class="quotes rv" style="margin-top:10vh;">
