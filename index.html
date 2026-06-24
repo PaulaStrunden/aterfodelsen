@@ -11,8 +11,13 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Fonts: preconnect + parallel load (far faster than @import, no late flash) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<!-- Start fetching the hero video as early as possible -->
+<link rel="preload" as="video" href="media/hero_teaser.mp4" type="video/mp4">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 
 :root{
   --ink:#ffffff;
@@ -444,7 +449,7 @@ section{position:relative;}
 
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
-  <div class="bg"><video id="heroVid" src="media/hero_teaser.mp4" autoplay muted loop playsinline poster="img/posters/hero_teaser_first.jpg"></video></div>
+  <div class="bg"><video id="heroVid" src="media/hero_teaser.mp4" autoplay muted loop playsinline preload="auto" poster="img/posters/hero_teaser_first.jpg"></video></div>
   <div class="shade"></div>
   <div class="hero-cred">XR Experience teaser: Christian A. Heredia</div>
   <div class="hero-txt">
@@ -892,11 +897,18 @@ section{position:relative;}
 /* ═══ LOADER ═══ */
 (function(){
   const l=document.getElementById('ldline'),ld=document.getElementById('loader');
-  let p=0;const t=setInterval(()=>{
-    p+=Math.random()*16+6;
-    if(p>=100){p=100;clearInterval(t);setTimeout(()=>ld.classList.add('gone'),300);}
-    l.style.width=p+'%';
-  },90);
+  const hero=document.getElementById('heroVid');
+  let p=0,done=false;
+  // progress creeps to 95% then waits for real readiness
+  const t=setInterval(()=>{p+=Math.random()*14+5;if(p>95)p=95;l.style.width=p+'%';},90);
+  function finish(){if(done)return;done=true;clearInterval(t);l.style.width='100%';setTimeout(()=>ld.classList.add('gone'),250);}
+  // lift loader only when BOTH the hero video can play AND the fonts are ready
+  let pending=2;const tick=()=>{if(--pending<=0)finish();};
+  if(hero&&hero.readyState>=3)tick();
+  else if(hero)hero.addEventListener('canplay',tick,{once:true});
+  else tick();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(tick);else tick();
+  setTimeout(finish,4500); // hard cap — never hang on a slow connection
 })();
 
 /* ═══ CURSOR ═══ */
